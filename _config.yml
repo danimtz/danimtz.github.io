@@ -3,8 +3,8 @@
 title: Your Name
 description: subtitle | affiliations | motto
 
-baseurl: /danimtz.github.io #name of GitHub repository
-url: #custom url to be used instead of GitHub repository
+baseurl: /danimtz.github.io/ #name of GitHub repository
+url: https://danimtz.github.io #custom url to be used instead of GitHub repository
 email: #
 
 
