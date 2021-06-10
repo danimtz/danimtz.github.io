@@ -5,7 +5,7 @@ description: Computer Systems Engineer
 
 baseurl:  #name of GitHub repository
 url:  #custom url to be used instead of GitHub repository
-email: #
+email: danimtz@outlook.com
 
 
 highlighter: rouge
@@ -17,12 +17,10 @@ permalink: /blog/:year/:title/
 paginate_path: /blog/page:num/
 
 # Social media links in footer
-facebook: "#"
-twitter: "https://twitter.com/danimtz_15"
-linkedin: "https://github.com/danimtz/"
-github: "#"
-researchgate: "#"
-orcid: "#"
+twitter: "danimtz_15"
+linkedin: "daniel-martinez-amigo-9b871b130"
+github: "danimtz"
+
 
 highlighter: rouge
 markdown: kramdown
