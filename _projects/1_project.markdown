@@ -2,9 +2,9 @@
 layout: page
 title: SRGB
 description: Software Renderer Go Brrr
-img: /assets/img/12.jpg
+img: /assets/img/11.jpg
 importance: 1
-category: work
+category: personal
 ---
 
 Every project has a beautiful feature showcase page.

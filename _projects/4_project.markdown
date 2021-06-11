@@ -1,10 +1,10 @@
 ---
 layout: page
-title: project 4
+title: project 444
 description: another without an image
-img:
-importance: 3
-category: fun
+img: 
+importance: 4
+category: university
 ---
 
 Every project has a beautiful feature showcase page.
