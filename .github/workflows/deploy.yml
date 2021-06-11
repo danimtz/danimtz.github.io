@@ -51,6 +51,7 @@ jobs:
         
     - name: Make deploy executable
       run: chmod +x bin/deploy
+           chmod +x bin/cibuild
       
     - name: Deploy website 
       run:  yes | bin/deploy --verbose ${{ steps.setup.outputs.NO_PUSH }}
