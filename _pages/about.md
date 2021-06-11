@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-description: . MEng Computer Systems Engineering | <a href="https://www.bath.ac.uk/">University of Bath</a>.
+description: MEng Computer Systems Engineering • <a href="https://www.bath.ac.uk/">University of Bath</a>.
 
 profile:
   align: right
@@ -13,7 +13,6 @@ profile:
     <p>Your City, State 12345</p>
 
 news: true  # includes a list of news items
-selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
