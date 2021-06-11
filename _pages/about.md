@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-description: <a href="#">Affiliations</a>. Address. Contacts. Moto. Etc.
+description: . MEng Computer Systems Engineering | <a href="https://www.bath.ac.uk/">University of Bath</a>.
 
 profile:
   align: right
