@@ -49,11 +49,7 @@ jobs:
           echo "::set-output name=DEPLOY_BRANCH::gh-pages"
         fi
         
-    - name: Make deploy executable
-      run: chmod +x bin/deploy
-      
-    - name: Make cibuild executable
-      run: chmod +x bin/cibuild
+   
       
     - name: Deploy website 
       run:  yes | bin/deploy --verbose ${{ steps.setup.outputs.NO_PUSH }}
