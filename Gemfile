@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
+
+gem "github-pages", "~> 215", group: :jekyll_plugins
 group :jekyll_plugins do
-    gem 'jekyll'
+    #gem 'jekyll'
     gem 'jekyll-email-protect'
     gem 'jekyll-github-metadata'
     gem 'jekyll-paginate-v2'
