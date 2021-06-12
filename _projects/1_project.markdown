@@ -1,7 +1,7 @@
 ---
 layout: page
 title: SRGB
-description: Software Renderer Go Brrr
+description: A C++ software renderer capable of PBR shading written mostly from scratch
 img: /assets/img/11.jpg
 importance: 1
 category: personal
