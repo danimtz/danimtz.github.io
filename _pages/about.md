@@ -8,16 +8,14 @@ profile:
   align: right
   image: prof_pic.jpg
   address: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
+    
 
 news: true  # includes a list of news items
 social: true  # includes social icons at the bottom of the page
 ---
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com){:target="\_blank"}. You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+Hello there! My name is Daniel Martinez Amigo and I'm a computer systems engineering graduate from the University of Bath. While my degree covered a wide range of subjects in both computer science and electrical engineering, I am mainly interested in computer graphics, low level programming, parallel computing and game development.
 
-Put your address / P.O. box / other info right below your picture. You can also disable any these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+Takj about interest withiun graphics. atlk about software renderer project. 
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](http://fortawesome.github.io/Font-Awesome/){:target="\_blank"} and [Academicons](https://jpswalsh.github.io/academicons/){:target="\_blank"}, like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+Outside of graphics and engineering I like film, tv, anime and games (I am a big Destiny fan). On my spare time I ocassionally play piano as a hobby, mainly enjoying playing covers from tv series or other music I like. Sportswise I love skiing specially off-piste and have been going with my family since I was 3 years old.
