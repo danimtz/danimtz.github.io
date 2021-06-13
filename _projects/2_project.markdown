@@ -1,7 +1,7 @@
 ---
 layout: page
-title: project 2
-description: a project with a background image
+title: Shader Collection
+description: A collection of shadertoy shaders including simple raymarching, path tracing, procedural fmb noise and more...
 img: /assets/img/3.jpg
 importance: 2
 category: personal
