@@ -89,6 +89,9 @@ collections:
   projects:
     output: true
     permalink: /projects/:path/
+  shaders:
+    output: true
+    permalink: /shaders/:path/
 
 news_limit: 5
 

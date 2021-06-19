@@ -1,6 +1,6 @@
 ---
 layout: page
-title: projects
+title: Projects
 permalink: /projects/
 description: Below you will find a selection of some of my personal and university projects.
 nav: true

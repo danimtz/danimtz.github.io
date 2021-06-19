@@ -95,6 +95,7 @@ a, table.table a {
   border-bottom: 1px solid $grey-color-light;
   background-color: var(--global-bg-color);
   opacity: 0.95;
+  text-transform: lowercase;
 }
 .navbar.navbar-light {
   a {
@@ -310,6 +311,16 @@ footer.sticky-bottom {
   }
 }
 
+
+.shadertoy{
+  text-align: center;
+  iframe{
+    width: 95%;
+    height: 360px;
+    object-fit: cover;
+  }
+}
+  
 
 // Projects
 
