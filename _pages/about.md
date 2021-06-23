@@ -14,8 +14,8 @@ news: true  # includes a list of news items
 social: true  # includes social icons at the bottom of the page
 ---
 
-Hello there! My name is Daniel Martinez Amigo and I'm a computer systems engineering graduate from the University of Bath. While my degree covered a wide range of subjects in both computer science and electrical engineering, I am mainly interested in computer graphics, low level programming, parallel computing and game development.
+Hello there! My name is Daniel Martinez Amigo and I'm a computer systems engineering graduate from the University of Bath. While my degree covered a wide range of subjects in both computer science and electrical engineering disciplines, my main interests are in computer graphics and rendering, parallel computing and game development.
 
-Takj about interest withiun graphics. atlk about software renderer project. 
+TODO--Takj about interest withiun graphics. atlk about software renderer project.-- Feel free to check out my <a href="{{ '/projects/' | relative_url }}" target="_blank">projects/portfolio</a> page for more.
 
 Outside of graphics and engineering I like film, tv, anime and games (I am a big Destiny fan). On my spare time I ocassionally play piano as a hobby, mainly enjoying playing covers from tv series or other music I like. Sportswise I love skiing specially off-piste and have been going with my family since I was 3 years old.
