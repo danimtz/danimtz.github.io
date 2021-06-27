@@ -2,7 +2,7 @@
 layout: page
 title: SRGB
 description: A C++ software renderer capable of PBR shading written mostly from scratch
-img: /assets/img/11.jpg
+img: /assets/img/SoftwareRenderer.PNG
 importance: 1
 category: personal
 ---
