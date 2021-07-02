@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Shader Collection
-description: A collection of shadertoy shaders including simple raymarching, path tracing, procedural fmb noise and more...
+description: A collection of shadertoy shaders including simple raymarching, path tracing and more...
 img: /assets/img/cornell.png
 importance: 2
 category: personal
