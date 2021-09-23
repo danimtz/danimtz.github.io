@@ -7,7 +7,7 @@ importance: 1
 category: university
 ---
 
-Explain how I first implemented the simple raymarcher. added skylight, sunlight a bounce light and did soft shadow
+Explain how I first implemented the simple raymarcher. Added skylight, sunlight a bounce light and did soft shadow. TODO
 
 <div class="shadertoy">
     <iframe  src="https://www.shadertoy.com/embed/Nls3Rj?gui=true&t=10&paused=true&muted=false" allowfullscreen></iframe>
