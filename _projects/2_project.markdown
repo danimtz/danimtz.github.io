@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Shader Collection
-description: A collection of shadertoy shaders including simple raymarching, path tracing and more...
+title: Shadertoy shaders
+description: Some shadertoy shaders including simple raymarching, path tracing...
 img: /assets/img/cornell.png
 importance: 2
 category: personal
