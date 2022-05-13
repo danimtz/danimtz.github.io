@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>Daniel Martinez Amigo | blank</title>
+<title>Daniel Martinez Amigo | Shadertoy shaders</title>
 <meta name="description" content="Personal portfolio website to showcase my projects and CV.
 ">
 
@@ -30,7 +30,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏔️</text></svg>">
 
 <link rel="stylesheet" href="/assets/css/main.css">
-<link rel="canonical" href="/blog/">
+<link rel="canonical" href="/projects/2_project/">
 
 <!-- Lightslider -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -98,7 +98,7 @@
           </li>
           
           <!-- Blog -->
-          <!-- <li class="nav-item active">
+          <!-- <li class="nav-item ">
             <a class="nav-link" href="/blog/">
               blog
               
@@ -106,8 +106,6 @@
           </li>-->
           
           <!-- Other pages -->
-          
-          
           
           
           
@@ -156,56 +154,67 @@
     <div class="container mt-5">
       <div class="post">
 
-  <div class="header-bar">
-    <h1>al-folio</h1>
-    <h2>a simple whitespace theme for academics</h2>
-  </div>
+  <header class="post-header">
+    <h1 class="post-title">Shadertoy shaders</h1>
+    <p class="post-description">Some shadertoy shaders including simple raymarching, path tracing...</p>
+  </header>
 
+  <article>
+    <p>The following are some highlighted shaders I coded in shadertoy that have helped me learn and practise graphics programming. You can find the full list and code in my <a href="https://github.com/danimtz/" target="_blank">github</a> or <a href="https://www.shadertoy.com/user/Danimtz" target="_blank">shadertoy</a> profiles.</p>
 
-  <ul class="post-list">
-    
-      <li>
-        <h3><a class="post-title" href="/blog/2020/github-metadata/">a post with github metadata</a></h3>
-        <p class="post-meta">September 28, 2020</p>
-        <p>a quick run down on accessing github metadata.</p>
-      </li>
-    
-      <li>
-        <h3><a class="post-title" href="/blog/2020/twitter/">a post with twitter</a></h3>
-        <p class="post-meta">September 28, 2020</p>
-        <p>an example of a blog post with twitter</p>
-      </li>
-    
-      <li>
-        <h3><a class="post-title" href="/blog/2018/distill/">a distill-style blog post</a></h3>
-        <p class="post-meta">December 22, 2018</p>
-        <p>an example of a distill-style blog post and main elements</p>
-      </li>
-    
-  </ul>
+<hr />
 
+<div class="projects">
   
-<nav aria-label="Blog page naviation">
-  <ul class="pagination pagination-lg justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="" tabindex="-1" aria-disabled="">Newer</a>
-    </li>
+    <!-- Generate cards for each project -->
+    <div class="grid">
     
+        <div class="grid-item">
+  
+  <a href="/shaders/2_shader/">
+  
+    <div class="card hoverable">
       
-        <li class="page-item active"><a class="page-link" href="/blog/index.html" title="blank">1</a></li>
+      <img src="/assets/img/burgers.png" alt="shader thumbnail" />
       
-        <li class="page-item "><a class="page-link" href="/blog/page/2/index.html" title="blank - page 2">2</a></li>
-      
-        <li class="page-item "><a class="page-link" href="/blog/page/3/index.html" title="blank - page 3">3</a></li>
-      
+      <div class="card-body">
+        <h3 class="card-title">Raymarching SDFs</h3>
+        <p class="card-text">Raymarcher using combinations of signed distance functions to create shapes and shadows</p>
+        <div class="row ml-1 mr-1 p-0">
+          
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+
     
-    <li class="page-item ">
-      <a class="page-link" href="/blog/page/2/">Older</a>
-    </li>
-  </ul>
-</nav>
+        <div class="grid-item">
+  
+  <a href="/shaders/3_shader/">
+  
+    <div class="card hoverable">
+      
+      <img src="/assets/img/cornell.png" alt="shader thumbnail" />
+      
+      <div class="card-body">
+        <h3 class="card-title">Path traced cornell box</h3>
+        <p class="card-text">A first attempt at path tracing the classic cornell box</p>
+        <div class="row ml-1 mr-1 p-0">
+          
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+
+    
+    </div>
+
+</div>
 
 
+  </article>
 
 </div>
 

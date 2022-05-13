@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>Daniel Martinez Amigo | blank</title>
+<title>Daniel Martinez Amigo | Raymarching SDFs</title>
 <meta name="description" content="Personal portfolio website to showcase my projects and CV.
 ">
 
@@ -30,7 +30,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏔️</text></svg>">
 
 <link rel="stylesheet" href="/assets/css/main.css">
-<link rel="canonical" href="/blog/">
+<link rel="canonical" href="/shaders/2_shader/">
 
 <!-- Lightslider -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -98,7 +98,7 @@
           </li>
           
           <!-- Blog -->
-          <!-- <li class="nav-item active">
+          <!-- <li class="nav-item ">
             <a class="nav-link" href="/blog/">
               blog
               
@@ -106,8 +106,6 @@
           </li>-->
           
           <!-- Other pages -->
-          
-          
           
           
           
@@ -156,56 +154,44 @@
     <div class="container mt-5">
       <div class="post">
 
-  <div class="header-bar">
-    <h1>al-folio</h1>
-    <h2>a simple whitespace theme for academics</h2>
-  </div>
+  <header class="post-header">
+    <h1 class="post-title">Raymarching SDFs</h1>
+    <p class="post-description">Raymarcher using combinations of signed distance functions to create shapes and shadows</p>
+  </header>
 
+  <article>
+    <p>Explain how I first implemented the simple raymarcher. Added skylight, sunlight a bounce light and did soft shadow. TODO</p>
 
-  <ul class="post-list">
-    
-      <li>
-        <h3><a class="post-title" href="/blog/2020/github-metadata/">a post with github metadata</a></h3>
-        <p class="post-meta">September 28, 2020</p>
-        <p>a quick run down on accessing github metadata.</p>
-      </li>
-    
-      <li>
-        <h3><a class="post-title" href="/blog/2020/twitter/">a post with twitter</a></h3>
-        <p class="post-meta">September 28, 2020</p>
-        <p>an example of a blog post with twitter</p>
-      </li>
-    
-      <li>
-        <h3><a class="post-title" href="/blog/2018/distill/">a distill-style blog post</a></h3>
-        <p class="post-meta">December 22, 2018</p>
-        <p>an example of a distill-style blog post and main elements</p>
-      </li>
-    
-  </ul>
+<div class="shadertoy">
+    <iframe src="https://www.shadertoy.com/embed/Nls3Rj?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen=""></iframe>
+</div>
 
-  
-<nav aria-label="Blog page naviation">
-  <ul class="pagination pagination-lg justify-content-center">
-    <li class="page-item disabled">
-      <a class="page-link" href="" tabindex="-1" aria-disabled="">Newer</a>
+<p>After doing that I experimented further by combining the SDF of a torus to cut out a space in the larger sphere to create a fractal-like animation of spheres rotating inside larger spheres.</p>
+
+<!---
+<ul id="light-slider">
+    <li>
+        <h3>First Slide</h3>
+        <p>Lorem ipsum Cupidatat quis psdfariatur anim.</p>
     </li>
-    
-      
-        <li class="page-item active"><a class="page-link" href="/blog/index.html" title="blank">1</a></li>
-      
-        <li class="page-item "><a class="page-link" href="/blog/page/2/index.html" title="blank - page 2">2</a></li>
-      
-        <li class="page-item "><a class="page-link" href="/blog/page/3/index.html" title="blank - page 3">3</a></li>
-      
-    
-    <li class="page-item ">
-      <a class="page-link" href="/blog/page/2/">Older</a>
+    <li>
+        <h3>Second Slide</h3>
+        <p>Lorem ipsum Excepteur amet adipisicing fugiat velit nisi.</p>
     </li>
-  </ul>
-</nav>
+</ul>
 
 
+<script type="text/javascript">
+    $(document).ready(function() {
+    $("ul").lightSlider(); 
+    });
+</script>--->
+
+<div class="shadertoy">
+    <iframe src="https://www.shadertoy.com/embed/slf3zl?gui=true&amp;t=10&amp;paused=true&amp;muted=false" allowfullscreen=""></iframe>
+</div>
+
+  </article>
 
 </div>
 
