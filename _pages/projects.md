@@ -4,7 +4,7 @@ title: Projects
 permalink: /projects/
 description: Below you will find a selection of some of my personal and university projects.
 nav: true
-display_categories: [personal, university]
+display_categories: [work, personal, university]
 horizontal: false
 ---
 <div class="projects">
