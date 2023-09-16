@@ -2,9 +2,9 @@
 layout: page
 title: Projects
 permalink: /projects/
-description: Below you will find a selection of some of my personal and university projects.
+description: Below you will find a selection of some of my personal and university and work projects.
 nav: true
-display_categories: [work, personal, university]
+display_categories: [unreal engine, graphics, university]
 horizontal: false
 ---
 <div class="projects">

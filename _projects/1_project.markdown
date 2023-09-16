@@ -5,7 +5,7 @@ description: A C++ software renderer capable of PBR shading written mostly from 
 img: /assets/img/SoftwareRenderer.PNG
 redirect: https://github.com/danimtz/SoftwareRendererGoBrrr
 importance: 1
-category: personal
+category: graphics
 ---
 
 Every project has a beautiful feature showcase page.

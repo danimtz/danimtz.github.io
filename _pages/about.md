@@ -22,6 +22,8 @@ Once I was done with the software renderer, I started working on Veist Engine, a
 
 Most recently I worked for a year at EPAM Systems as an Unreal Engine Developer where I received professional training with the engine and adquired plentiful and valuable experience about game development. While at EPAM, I took part as a technical and design co-lead in a project using Epic's Unreal Editor for Fortnite to create educational gameplay experiences.
 
- Feel free to check out my <a href="{{ '/projects/' | relative_url }}" target="_blank">projects/portfolio</a> page for more.
+Currently I am working on a personal project of recreating the gameplay of Destiny 2 in Unreal Engine 5 as a learning execercise while I look for employment as an Unreal Engine developer.
 
-Outside of graphics and engineering I like film, tv, anime and games (I am a big Destiny fan if you couldn't tell by the name of the vulkan project). On my spare time I ocassionally play piano as a hobby, mainly enjoying playing covers from tv series or other music I like. Sportswise I love skiing specially off-piste and have been going with my family since I was 3 years old.
+Feel free to check out my <a href="{{ '/projects/' | relative_url }}" target="_blank">projects/portfolio</a> page for more.
+
+Outside of graphics, gamedev and engineering I like film, tv, anime and games (I am a big Destiny fan if you couldn't tell). On my spare time I ocassionally play piano as a hobby, mainly enjoying playing covers from tv series or other music I like. Sportswise I love skiing specially off-piste and have been going with my family since I was 3 years old.
