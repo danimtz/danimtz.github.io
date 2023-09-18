@@ -65,16 +65,29 @@
       <d-title>
         <h1>{{ page.title }}</h1>
         <p>{{ page.description }}</p>
+        <p class="post-tags">
+        {% for category in page.categories -%}
+        <a href="{{ category | slugify | prepend: '/projects/' | prepend: site.baseurl}}">
+          <i class="fas fa-undo fa-sm"></i> Back to project</a> &nbsp;
+          {% endfor -%}
+        </p>
       </d-title>
 
+      <!--
       <d-byline></d-byline>
+      -->
+  
+
+
 
       <d-article>
         {% if page.toc -%}
         <d-contents>
           <nav class="l-text figcaption">
           <h3>Contents</h3>
-            {% for section in page.toc -%}
+          {% toc %}
+          <!--
+          {% for section in page.toc -%}
             <div><a href="#{{ section.name | slugify }}">{{ section.name }}</a></div>
             {% if section.subsections -%}
             <ul>
@@ -84,6 +97,7 @@
             </ul>
             {%- endif -%}
             {%- endfor %}
+          -->
           </nav>
         </d-contents>
         {%- endif %}
@@ -91,11 +105,13 @@
         {{ content }}
       </d-article>
 
+    <!-- 
       <d-appendix>
         <d-footnote-list></d-footnote-list>
         <d-citation-list></d-citation-list>
       </d-appendix>
-
+    -->
+    
       <d-bibliography src="{{ page.bibliography | prepend: '/assets/bibliography/' | relative_url }}"></d-bibliography>
 
       {%- if site.disqus_shortname and page.disqus_comments -%}
@@ -111,6 +127,7 @@
     {%- include footer.html %}
 
     {% include scripts/bootstrap.html %}
+    {% include scripts/analytics.html %}
     {% include scripts/progressBar.html %}
   </body>
 </html>

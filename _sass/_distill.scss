@@ -78,11 +78,12 @@ d-article {
     nav {
       grid-column: toc;
       a {
-        
         border-bottom: none !important;
         &:hover {
           border-bottom: 1px solid var(--global-text-color) !important;
         }
+        font-size: 0.8rem;
+        font-weight: bold;
       }
       h3 {
         margin-top: 0;
