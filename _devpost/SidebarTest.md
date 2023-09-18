@@ -3,7 +3,7 @@ layout: post
 title: Health bar and recovery
 description: Recreating the destiny 2 health bar and recovery system using materials, UMG and GAS.
 img: /assets/img/devpost_covers/giphy.gif
-categories: Density
+categories: density
 giscus_comments: true
 related_posts: false
 styles: aaaaa
