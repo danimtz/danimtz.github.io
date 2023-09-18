@@ -18,9 +18,18 @@
    padding-bottom: 0;
  }
 
+
+
+
+
 .container {
   max-width: $max-content-width;
 }
+
+.container-large {
+  max-width: $max-content-width * 2;
+}
+
 
 // Profile
 .profile {

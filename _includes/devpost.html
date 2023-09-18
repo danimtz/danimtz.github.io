@@ -1,0 +1,18 @@
+<div class="grid-item">
+  {% if devpost.redirect %}
+  <a href="{{ devpost.redirect }}" target="_blank">
+  {% else %}
+  <a href="{{ devpost.url | relative_url }}">
+  {% endif %}
+    <div class="card hoverable">
+      {% if devpost.img %}
+      <img src="{{ devpost.img | relative_url }}" alt="devpost thumbnail">
+      {% endif %}
+      <div class="card-body">
+        <h3 class="card-title">{{ devpost.title }}</h3>
+        <p class="card-text">{{ devpost.description }}</p>
+        
+      </div>
+    </div>
+  </a>
+</div>

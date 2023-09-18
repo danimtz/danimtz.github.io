@@ -1,31 +1,79 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ site.lang }}">
 
+  <!-- Head -->
   <head>
-    {% include head.html %}
-    {% include scripts/mathjax.html %}
+  {%- if page.redirect -%}
+    <meta http-equiv="refresh" content="3; url={{ site.baseurl }}/" />
+  {%- endif -%}
+  {% include head.html %}
   </head>
 
+  <!-- Body -->
   <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
 
     <!-- Header -->
-
-    {% include header.html %}
+    {%- include header.html %}
 
     <!-- Content -->
+    <div class="container container-large">
 
-    <div class="container mt-5">
-      {{ content }}
+
+      {% if page.toc and page.toc.sidebar %} 
+        {% if page.toc.sidebar == "right" %}
+        <div class="row justify-content-end">
+          <!-- main content area -->
+          <div class="col-md-6 offset-md-3">
+            <div class="container mt-5">
+              {{ content }}
+            </div>
+          </div>
+          <!-- sidebar, which will move to the top on a small screen -->
+          <div class="col-md-3 offset-md-0">
+            <nav id="toc-sidebar" class="sticky-top"></nav>
+          </div>
+        </div>
+       
+
+        <!-- LEFT SIDEBAR UNUSED UNSUPPORTED -->
+        {% else %}
+        <div class="row">
+          <!-- sidebar, which will move to the top on a small screen -->
+          <div class="col-md-3 offset-md-3">
+            <nav id="toc-sidebar" class="sticky-top"></nav>
+          </div>
+          <!-- main content area -->
+          <div class="col-md-6 offset-md-3">
+            <div class="container mt-5">
+              {{ content }}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+    
+
+
+      {% else %}
+
+      <div class="container mt-5">
+        {{ content }}
+      </div>
+      {% endif %}
+
+      
     </div>
 
     <!-- Footer -->
+    {%- include footer.html %}
 
-    {% include footer.html %}
-
+    <!-- JavaScripts -->
+    {% include scripts/jquery.html %}
+    {% include scripts/bootstrap.html %}
+    {% include scripts/masonry.html %}
+    {% include scripts/misc.html %}
+    {% include scripts/badges.html %}
+    {% include scripts/mathjax.html %}
+    {% include scripts/analytics.html %}
+    {% include scripts/progressBar.html %}
   </body>
-
-  {% include scripts/bootstrap.html %}
-  {% include scripts/mansory.html %}
-  {% include scripts/misc.html %}
-
 </html>

@@ -7,7 +7,7 @@ description: MEng Computer Systems Engineering • <a href="https://www.bath.ac.
 profile:
   align: right
   image: prof_pic.jpg
-  address: >
+  address: 
     
 
 news: true  # includes a list of news items

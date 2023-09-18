@@ -23,6 +23,10 @@ a, table.table a {
   }
 }
 
+html {
+  scroll-padding-top: 60px; /* height of sticky header */
+}
+
 // Math
 
 .equation {
@@ -365,6 +369,7 @@ footer.sticky-bottom {
     }
   }
 
+  .grid-sizer,
   .grid-item {
     width: 250px;
     margin-bottom: 10px;
@@ -380,6 +385,62 @@ footer.sticky-bottom {
   }
 }
 
+
+// Devpost
+
+.devpost {
+
+  
+  .card-body{
+    margin-bottom: 0rem;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      .card-title {
+        color: var(--global-theme-color);
+      }
+    }
+  }
+
+  .card {
+    img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+    .card-title {
+      color: $black-color;
+    }
+  }
+
+  .card-item {
+    width: auto;
+    margin-bottom: 10px;
+
+    .row {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .grid-sizer,
+  .grid-item {
+    width: 250px;
+    margin-bottom: 10px;
+  }
+
+  h2.category {
+    color: $grey-color-light;
+    border-bottom: 1px solid $grey-color-light;
+    padding-top: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    text-align: right;
+  }
+}
 
 // Publications
 
@@ -534,4 +595,180 @@ html.transition *:before,
 html.transition *:after {
   transition: all 750ms !important;
   transition-delay: 0 !important;
+}
+
+
+
+
+/* Table of Contents */
+nav[data-toggle="toc"] {
+  top: 6rem;
+  
+  .nav .nav>li>a {
+    font-size: .75rem;
+  }
+
+  .nav>li>a {
+    color: var(--global-text-color);
+    font-size: .75rem;
+
+    &:hover {
+      color: var(--global-hover-color);
+      border-left-color: var(--global-hover-color);
+    }
+  }
+
+  .nav-link.active {
+    color: var(--global-theme-color);
+    border-left-color: var(--global-theme-color);
+    font-size: .75rem;
+
+    &:hover {
+      color: var(--global-hover-color);
+      border-left-color: var(--global-hover-color);
+    }
+  }
+}
+
+/* small screens */
+@media (max-width: 576px) {
+  /* override stickyness so that the navigation does not follow scrolling */
+  nav[data-toggle="toc"] {
+    visibility: hidden;
+    height: 0;
+    top: 0;
+  }
+}
+
+
+
+
+progress {
+  /* Positioning */
+  position: fixed;
+  left: 0;
+  top: 56px;
+  z-index: 10;
+
+  /* Dimensions */
+  width: 100%;
+  height: 1px;
+
+  /* Reset the appearance */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Get rid of the default border in Firefox/Opera. */
+  border: none;
+
+  /* Progress bar container for Firefox/IE10  */
+  background-color: transparent;
+
+  /* Progress bar value for IE10  */
+  color: var(--global-theme-color);
+}
+
+progress::-webkit-progress-bar {
+  background-color: transparent;
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--global-theme-color);
+}
+
+progress::-moz-progress-bar {
+  background-color: var(--global-theme-color);
+}
+
+.progress-container {
+  width: 100%;
+  background-color: transparent;
+  position: fixed;
+  top: 56px;
+  left: 0;
+  height: 5px;
+  display: block;
+}
+
+.progress-bar {
+  background-color: var(--global-theme-color);
+  width: 0%;
+  display: block;
+  height: inherit;
+}
+
+
+
+
+/* Copy button */
+.code-display-wrapper {
+  position: relative;
+
+  .copy {
+    background: var(--global-card-bg-color);
+    border-color: var(--global-bg-color);
+    border-radius: .3rem;
+    border-style: none;
+    color: var(--global-text-color);
+    font-size: medium;
+    opacity: 0;
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
+  }
+
+  &:active .copy,
+  &:focus .copy,
+  &:hover .copy {
+    color: var(--global-hover-color);
+    opacity: 1;
+  }
+}
+
+.btn-group.dropdown {
+  .btn {
+    box-shadow: none;
+    -webkit-box-shadow: none;
+  }
+
+  .btn-secondary.dropdown-toggle {
+    border: 1px solid var(--global-divider-color);
+
+    .page-size {
+      color: inherit;
+    }
+
+    &:not(.active) {
+      background-color: var(--global-bg-color) !important;
+      color: var(--global-text-color);
+    }
+
+    &:hover {
+      background-color: var(--global-hover-color) !important;
+      color: var(--global-hover-text-color) !important;
+    }
+  }
+
+  .dropdown-menu {
+    background-color: var(--global-bg-color);
+  }
+
+  .dropdown-item {
+    background-color: var(--global-bg-color);
+    color: var(--global-text-color);
+
+    &:hover {
+      color: var(--global-hover-color);
+    }
+  }
+
+  .dropdown-item.active, .dropdown-item:active {
+    background-color: var(--global-hover-color);
+    color: var(--global-hover-text-color) !important;
+
+    &:hover {
+      color: var(--global-hover-text-color);
+    }
+  }
 }

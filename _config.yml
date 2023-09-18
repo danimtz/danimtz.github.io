@@ -93,6 +93,9 @@ collections:
   shaders:
     output: true
     permalink: /shaders/:path/
+  devpost:
+    output: true
+    permalink: /devpost/:path/
 
 news_limit: 5
 
@@ -134,6 +137,17 @@ plugins:
   - jekyll/scholar
   - jekyll-twitter-plugin
   - jemoji
+  - jekyll-diagrams
+  - jekyll-feed
+  - jekyll-get-json
+  - jekyll-imagemagick
+  - jekyll-jupyter-notebook
+  - jekyll-link-attributes
+  - jekyll-minifier
+  - jekyll-sitemap
+  - jekyll-toc
+  - jekyll-archives
+  - jekyll-twitter-plugin
 
 # Extras
 github: [metadata]
@@ -169,7 +183,7 @@ scholar:
 
 enable_google_analytics:    false  # enables google analytics
 enable_panelbear_analytics: false  # enables panelbear analytics
-enable_mansory:             true   # enables automatic project cards arangement
+enable_masonry:             true   # enables automatic project cards arangement
 enable_math:                true   # enables math typesetting (uses MathJax)
 enable_tooltips:            false  # enables automatic tooltip links generated
                                    # for each section titles on pages and posts
@@ -179,6 +193,7 @@ enable_navbar_social:       true  # enables displaying social links in the
 enable_project_categories:  true   # enables categorization of projects into
                                    # multiple categories
 enable_medium_zoom:         true   # enables image zoom feature (as on medium.com)
+enable_progressbar:         true   # enables a horizontal progress bar linked to the vertical scroll position
 
 # -----------------------------------------------------------------------------
 # Library versions
@@ -188,10 +203,12 @@ academicons:
   version: "1.9.0"
   integrity: "sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg=="
 bootstrap:
-  version: "4.5.2"
+  version: "4.6.1"
   integrity:
-    css: "sha512-MoRNloxbStBcD8z3M/2BmnT+rg4IsMxPkXaGh2zD6LGNNFE80W3onsAhRcMAMrSoyWL9xD7Ert0men7vR8LUZg=="
-    js: "sha512-M5KW3ztuIICmVIhjSqXe01oV2bpe248gOxqmlcYrEzAvws7Pw3z6BK0iGbrwvdrUQUhi3eXgtxp5I8PDo9YfjQ=="
+    css: "sha256-DF7Zhf293AJxJNTmh5zhoYYIMs2oXitRfBjY+9L//AY="
+    js: "sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8="
+bootstrap-table:
+  version: "1.21.4"
 fontawesome:
   version: "5.14.0"
   integrity: "sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
@@ -200,7 +217,7 @@ jquery:
   integrity: "sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
 mathjax:
   version: "3.1.2"
-mansory:
+masonry:
   version: "4.2.2"
   integrity: "sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI="
 mdb:
