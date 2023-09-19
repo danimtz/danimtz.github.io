@@ -11,6 +11,8 @@ Destiny 2 is one of my favourite videogames, so as a learning exercise I have be
 and best practises of in many different features of Unreal Engine 5; from creating dynamic materials for UI components, to importing assets and creating custom animations with sequencer, to using both C++ and Blueprints to tackle the Gameplay Ability System and implement networked multiplayer gameplay.
 Below are some posts covering different areas of the project and the workflows used to create them.
 
+(TODO: add video here)
+
 This is still a work in progress. The main goal apart from practising with UE5 is to recreate the Crown of Sorrow boss encounter, a level from Destiny 2 that was removed from the game in 2020  and I would like to play again.
 
 <hr>
