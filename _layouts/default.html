@@ -16,7 +16,7 @@
     {%- include header.html %}
 
     <!-- Content -->
-    <div class="container container-large">
+    <div class="container mt-5">
 
 
       {% if page.toc and page.toc.sidebar %} 
@@ -24,9 +24,9 @@
         <div class="row justify-content-end">
           <!-- main content area -->
           <div class="col-md-6 offset-md-3">
-            <div class="container mt-5">
+            
               {{ content }}
-            </div>
+            
           </div>
           <!-- sidebar, which will move to the top on a small screen -->
           <div class="col-md-3 offset-md-0">
@@ -44,9 +44,9 @@
           </div>
           <!-- main content area -->
           <div class="col-md-6 offset-md-3">
-            <div class="container mt-5">
+            
               {{ content }}
-            </div>
+            
           </div>
         </div>
         {% endif %}
@@ -55,9 +55,9 @@
 
       {% else %}
 
-      <div class="container mt-5">
+      
         {{ content }}
-      </div>
+      
       {% endif %}
 
       
