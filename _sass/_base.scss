@@ -607,9 +607,12 @@ pre {
   background-color: var(--global-code-bg-color);
   border-radius: 6px;
   padding: 6px 12px;
-  pre, code {
+
+  pre,
+  code {
     background-color: transparent;
     border-radius: 0;
+    margin-bottom: 0;
     padding: 0;
   }
 }
