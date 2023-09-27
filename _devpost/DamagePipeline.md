@@ -28,17 +28,31 @@ toc: true
 This article explores how the damage pipeline used in the project works and how it uses the Gameplay Ability System to do so. It also gives some examples of its use to apply weapon and ability damage with some custom perks and effects found in Destiny 2 such as Rampage and Echo of Undermining vortex grenades.
 
 <div class="l-body">
-        {% include video.html path="assets/video/HealthBar.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
+        {% include video.html path="assets/video/DamagePipeline.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
 </div>
 <div class="caption">
-    Example video of using a weapon with the damage perk Rampage and a Vortex grenade that applies a 15% weaken effect to targets <a href="#example-uses-of-the-damage-pipeline">(Detailed explanation below)</a>
+    Example video of using a weapon with the damage perk Rampage and a Vortex grenade that applies a 15% weaken effect to targets <a href="#example-uses-of-the-damage-pipeline">(Detailed explanation below)</a>. Kills with a weapon also give 20% grenade energy back.
 </div>
 
 
 
 ### Buffs, debuffs, weapon perks and damage in Destiny 2
 
+Destiny 2 is a complex first person shooter game that implements many elements from rpg and mmo games. Characters in the game have a wide variety of abilities and weapons and every one of these can have many different perks and modifications that apply effects on the player and enemies from simple stat and damage buffs to crazier effects that heavily alter the players gameplay. 
 
+The damage system in Destiny 2 also supports different types of buffs and debuffs some of which stack and some only use the highest effect applied. Weapons and abilities can also deal elemental damage of which there are 3 in Destiny 2 (_Arc_, _Solar_ and _Void_). Any of the buffs and debuffs in the game can have the possibility of only affecting a specefic damage type from a specific source, eg: a player could have an effect that gives an increase in damage to _Void_ grenade abilities.
+
+As a general rule however Destiny 2 has 4 main types of buffs/debuffs:
+
+- *Empower* effects buff the damage dealt by weapons and only the highest empower buff applied affects the player.
+
+- *Surge* effects buff the damage dealt by weapons and are tied to a specific element and only the highest empower buff applied affects the player.
+
+- *Weaken* effects increase the damage taken by a target from all sources and only the highest weaken effect applied affects the target.
+
+- Any other type of damage increase that doesnt belong to the above such as those originating from weapon perks stacks can be stacked infinately.
+
+In order to  to simulate this behaviour in UE5, a custom damage pipeline that uses the Gameplay Ability System was created.
 
 
 ## GAS Damage pipeline
@@ -129,6 +143,15 @@ When firing any of the events in the damage pipeline above, the custom gameplay 
 ## Example uses of the Damage Pipeline
 
 ### Rampage weapon perk damage buff example
+
+<div class="l-body">
+        {% include video.html path="assets/video/RampageExample.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
+</div>
+<div class="caption">
+    Rampage perk gives stacking damage buff when getting kills with a weapon.
+</div>
+
+
 Rampage is a very popular weapon perk inside of Destiny 2. It is a perk that gives a stacking damage buff when the player defeats an enemy with the weapon that has the perk. The buff lasts for 4.5 seconds and if the user gets another kill within that time the Rampage stacks increase up to a maximum of 3. If the buff timer runs out the stacks reset to 0.
 
 - Rampage x1 gives a 10% damage increase
@@ -168,6 +191,14 @@ When the player unequips the weapon with the rampage perk, any stacks of `GE_Ram
 
 ### Echo of undermining grenade perk example
 
+<div class="l-body">
+        {% include video.html path="assets/video/UnderminingExample.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
+</div>
+<div class="caption">
+     Grenade applies a 15% debuff to enemies increasing damage dealt to the target from all sources and making the damage numbers yellow for all sources of damage.
+</div>
+
+
 In Destiny 2, Echo of Undermining is a fragment(ability) that applies a 15% weaken debuff to an enemy for 5 seconds after a grenade deals damage to it. Weaken debuffs are a type of non-stackable debuff which means that only the highest percent debuff applied should affect a target.
 
 To recreate this using the Density damage pipeline we need two `GA` and `GE`. First the ability `GA_EchoOfUndermining` is added to the player's `ASC`. This ability is activated by the _BeforeDamage_ event in the damage pipeline. It is a simple ability, first it checks that the instigator is not the same as the target (so that self damage from a grenade wont apply a weaken effect to the insitgator) and it also checks that the damage being dealth is of tag `DamageType.Ability.Grenade`. If these conditions are met, the `GE_GiveWeaken15Buff` is applied to the target for 5 seconds.
@@ -186,4 +217,18 @@ To recreate this using the Density damage pipeline we need two `GA` and `GE`. Fi
 
 
 
-TODO GA_DamageEffect_NonStack
+`GA_DamageEffect_NonStack` first checks the current value of the respective buff attribute (weaken in this case) and then only applies the effect value if the _StatusEffectPercent_ variable is higher than the current attribute value. The value of the applied weaken is set using a SetByCaller magnitude on the `GE_WeakenDebuff` effect which overrides the value of the `IncomingWeakenDebuff` attribute.
+
+
+<div class="l-page-outset">
+  {% include figure.html path="assets/img/DamagePipelineDevpost/GANonStack.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+<div class="caption">
+    GA_DamageEffect_NonStack ability
+</div>
+
+
+
+
+
+
