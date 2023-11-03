@@ -67,7 +67,7 @@
         <p>{{ page.description }}</p>
         <p class="post-tags">
         {% for category in page.categories -%}
-        <a href="{{ category | slugify | prepend: '/projects/' | prepend: site.baseurl}}">
+        <a href="{{ category | slugify | prepend: '/portfolio/' | prepend: site.baseurl}}">
           <i class="fas fa-undo fa-sm"></i> Back to project</a> &nbsp;
           {% endfor -%}
         </p>

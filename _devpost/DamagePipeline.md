@@ -231,4 +231,8 @@ To recreate this using the Density damage pipeline we need two `GA` and `GE`. Fi
 
 
 
+[<i class="fas fa-arrow-up fa-sm"></i> Back to top](#)
+
+
+[<i class="fas fa-undo fa-sm"></i> Back to project](/portfolio/density/)     
 

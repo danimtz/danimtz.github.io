@@ -24,6 +24,6 @@ Most recently I worked for a year at EPAM Systems as an Unreal Engine Developer 
 
 Currently I am working on a personal project of recreating the gameplay of Destiny 2 in Unreal Engine 5 as a learning execercise while I look for employment as an Unreal Engine developer.
 
-Feel free to check out my <a href="{{ '/projects/' | relative_url }}" target="_blank">projects/portfolio</a> page for more.
+Feel free to check out my <a href="{{ '/portfolio/' | relative_url }}" target="_blank">projects/portfolio</a> page for more.
 
 Outside of graphics, gamedev and engineering I like film, tv, anime and games (I am a big Destiny fan if you couldn't tell). On my spare time I ocassionally play piano as a hobby, mainly enjoying playing covers from tv series or other music I like. Sportswise I love skiing specially off-piste and have been going with my family since I was 3 years old.

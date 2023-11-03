@@ -226,4 +226,4 @@ As an extra game-feel addition, when the grenade first spawns the vortex effects
 [<i class="fas fa-arrow-up fa-sm"></i> Back to top](#)
 
 
-[<i class="fas fa-undo fa-sm"></i> Back to project](/projects/density/)         
+[<i class="fas fa-undo fa-sm"></i> Back to project](/portfolio/density/)         
