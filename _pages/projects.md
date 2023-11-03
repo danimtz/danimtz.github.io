@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Projects
-permalink: /projects/
+permalink: /portfolio/
 description: Below you will find a selection of some of my personal and university and work projects.
 nav: true
 display_categories: [unreal engine, graphics, university]
