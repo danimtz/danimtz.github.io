@@ -2,7 +2,7 @@
 layout: distill
 
 title: Damage pipeline 
-description: Extending the Unreal Engine's Gameplay Ability System to implement an extendable damage pipeline capable of supporting Destiny 2's complex damage calculations, weapon perks and abilities.
+description: Extending Unreal Engine's Gameplay Ability System to implement a damage pipeline capable of supporting Destiny 2's complex damage calculations, weapon perks and abilities.
 importance: 2
 img: /assets/img/devpost_covers/DamagePipeline.png
 category: density
