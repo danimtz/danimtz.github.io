@@ -164,13 +164,13 @@ To recreate this using the Density damage pipeline we need two `GA`, two `GE` an
   {% include figure.html path="assets/img/DamagePipelineDevpost/RampageBP.png" class="img-fluid rounded z-depth-1" zoomable=true %}
 </div>
 
-The `GA_RampagePerk` is added to the player's `ASC` when the player equips a weapon that has the perk on its `AbiltySet`. (The adding of the ability is handled in C++)
+The `GA_RampagePerk` is added to the player's `ASC` when the player equips a weapon that has the perk on its `AbiltySet`. ([The adding of the ability is handled in C++](https://github.com/danimtz/DensityUE5/blob/master/Source/Density/Ability/DensAbilitySet.cpp#L94))
 
 The `GA_RampagePerk` is activated by responding to the _OnKill_ event. Then if the `DamageType` tag matches `DamageType.Weapon`, the `GE_RampagePerk` is applied to the player, the ability then checks the number of stacks of `GE_RampagePerk` on the `ASC` and sets the ability level corresponding to the number of stacks.
 
 `GE_RampagePerk` is an duration based `GE` that stacks up to 3 times, and lasts 4.5 seconds. It also grants the player the `GA_RamageBuff` ability. This is the main ability which responds to the _ModifyOutgoingDamage_ event and modifies the `OutgoingDamage` attribute by applying the `GE_RampageBuff` effect. The amount by which the `OutgoingDamage` is multiplied by is extracted from the curve table based on the level of the gameplay effect, which is set to be the same as the ability level set by `GA_RampagePerk`. 
 
-When the player unequips the weapon with the rampage perk, any stacks of `GE_RampagePerk` remaining on the `ASC` are removed (this is done in C++).
+When the player unequips the weapon with the rampage perk, any stacks of `GE_RampagePerk` remaining on the `ASC` are removed ([this is done in C++](https://github.com/danimtz/DensityUE5/blob/master/Source/Density/Characters/PlayerCharacters/DensWeaponEquipmentComponent.cpp#L521)).
 
 <div class="l-page-outset">
   {% include figure.html path="assets/img/DamagePipelineDevpost/GA_RampagePerk.png" class="img-fluid rounded z-depth-1" zoomable=true %}

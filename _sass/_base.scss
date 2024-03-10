@@ -408,7 +408,6 @@ footer.sticky-bottom {
   .card-item {
     width: auto;
     margin-bottom: 10px;
-
     .row {
       display: flex;
       align-items: center;
@@ -436,9 +435,9 @@ footer.sticky-bottom {
 
 .devpost {
 
-  
   .card-body{
     margin-bottom: 0rem;
+    height: 225px;
   }
 
   a {
@@ -468,6 +467,9 @@ footer.sticky-bottom {
       align-items: center;
     }
   }
+
+
+
 
   .grid-sizer,
   .grid-item {
