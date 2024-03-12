@@ -103,11 +103,58 @@ The ammo bricks are actors that inherit from custom C++ classes, [DensPickupItem
 The weapon section in the HUD is comprised of a `Weapon Carousel` Widget which holds three different individual `WeaponInfo` Widgets
 
 ### Weapon Info Widget
+The weapon info widget gives the player information about the current weapon. It has the following dynamic elements that are initialized when a new weapon is equipped:
+
+<div class="l-body">
+  {% include figure.html path="assets/img/WeaponHUDDevpost/WeaponInfo.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+
+1. Weapon icon
+2. Weapon element icon
+3. Mag ammo
+4. Ammo reserves
+5. Ammo type bar (white, green or purple depending on ammo type)
+6. Recently picked up ammo (+ sign followed by number of ammo goes there)
+
+
+The following function is called when initializing a new weapon instance with the UI:
+<div class="l-page-outset">
+  {% include figure.html path="assets/img/WeaponHUDDevpost/WeaponInit.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+<div class="caption">
+   Weapon Init function
+</div>
+
+The weapon info widget also has widget animations that play when the weapon is equipped/unequipped and when ammo is picked up:
+
+<div class="l-body">
+  {% include figure.html path="assets/img/WeaponHUDDevpost/EquipAnim.gif" class="img-fluid rounded z-depth-1" zoomable=true %}
+  {% include figure.html path="assets/img/WeaponHUDDevpost/NewAmmoAnim.gif" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
 
 
 ### Weapon Carousel
+The weapon carousel widget holds three separate weapon info widgets. The currently equipped weapon info widget is set at the top, while the unequipped weapons are layed out minimized under it:
 
+<div class="l-body-outset">
+  {% include figure.html path="assets/img/WeaponHUDDevpost/WeaponCarousel.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+<div class="caption">
+   Weapon Carousel base layout
+</div>
 
+When the player swaps weapons, an event is called from C++ in the Weapon Carousel widget that moves the selected weapon to the topmost slot, playing the equipped animation(from the weapon info widget above) while simultaneously playing the weapon unequip animation on the previously equipped weapon. The event then runs a short algorithm that decides where each of the unequipped weapons should be placed in the carousel to try and respect the original equip order.
+
+Once the position of each of the widgets is decided, an FInterp To node is used to smoothly move each of the weapon info widgets to their corresponding location. The following function is ran each tick to simulate a widget animation until the widget position is equal to the target position:
+
+<div class="l-page-outset">
+  {% include figure.html path="assets/img/WeaponHUDDevpost/MoveToPositionFunction.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+<div class="caption">
+   Move to position function. Ran each tick until the condition is met. TargetPosition array calculated by weapon ordering algorithm.
+</div>
+
+### Weapon Ordering Algorithm
 
 
 
