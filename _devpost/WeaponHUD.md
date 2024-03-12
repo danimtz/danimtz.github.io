@@ -41,7 +41,7 @@ _styles: >
   }
 
 ---
-# (Under construction, full devblog soon)
+
 
 ## Introduction
 
@@ -51,7 +51,7 @@ This article expains how the weapon HUD carousel and ammo system works
         {% include video.html path="assets/video/WeaponHUDDemo.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
 </div>
 <div class="caption">
-    Example of the weapon HUD showing current ammo reserves, weapon swapping and ammo pickups
+    Final result of the weapon HUD showing current ammo reserves, weapon swapping and ammo pickups
 </div>
 
 
@@ -155,11 +155,26 @@ Once the position of each of the widgets is decided, an FInterp To node is used 
 </div>
 
 ### Weapon Ordering Algorithm
+The algorithm for ordering the weapons is rather simple and not extremely efficient( O(N^2) ) but since it only iterates an array of 3 items it does its job. (It is designed to be able to support more than 3 weapon slots). 
+The initial slots on the carousel are numbered from 0 to 2 (0, 1, 2).
+
+1. Initialize array (`CarouselNodeEmptyArray`) that holds boolean value on wether a slot in the carousel is empty and set the original slot of the weapon to be equipped to empty. (eg if equipping the weapon in slot 1, set the bool array slot 1 to empty)
+2. Set the target position for the newly equipped weapon to the very top slot of the carousel, then create an array `EquippedWeaponSlotArray` with the remaining weapon slots. (eg if equipping weapon in slot 1, leftover array should be [0, 2] )
+3. Iterate the `EquippedWeaponSlotArray` array with index `j`:
+    - Iterate the `CarouselNodeEmptyArray` array starting from the end with index `k`:
+        - If (`CarouselNodeEmptyArray[k]` is empty) Or If (`EquippedWeaponSlotArray[j]` >= `k`):
+            1. Set position for target weapon `EquippedWeaponSlotArray[j]`.
+            2. Set `CarouselNodeEmptyArray[j]` to empty and set `CarouselNodeEmptyArray[k]` to not empty.
+            3. Break out of the inner for loop.
 
 
+Using this algorithm allows the weapons in the carousel to always be ordered. For example if a player has their `Heavy` ammo weapon equipped and wants to change to their first unequipped weapon, the entire carousel will reorder the `Heavy` ammo weapon to be at the bottom of the list:
+
+<div class="l-body">
+  {% include figure.html path="assets/img/WeaponHUDDevpost/CarouselAnim.gif" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
 
 
-## Improvements to be made
 
 
 
