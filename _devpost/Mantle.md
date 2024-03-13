@@ -41,10 +41,18 @@ _styles: >
   }
 
 ---
-# (Under construction, devblog soon)
+# (Under construction, full devblog soon)
 
 ## Introduction
 
+This article expains how the mantle system was implemented using a mix of collision tests, traces and UE5's motion warping plugin.
+
+<div class="l-body">
+        {% include video.html path="assets/video/MantleExample.mp4" class="img-fluid rounded z-depth-1" controls=true autoplay=true %}
+</div>
+<div class="caption">
+    Final result of mantle system. Shows both short and tall mantle, in first and third person and also demonstrates different edge cases in which the mantle system does not activate such as when theres not enough space to perform a mantle or if the player is not looking toward the mantle surface.
+</div>
 
 
 
@@ -65,7 +73,7 @@ _styles: >
 
 ## Improvements to be made
 
-
+- The mantling animations for the third person character currently only perform the root motion of the character, without any actual animation. A proper animation for the character in third person will be added later.
 
 
 [<i class="fas fa-arrow-up fa-sm"></i> Back to top](#)
