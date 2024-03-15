@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<!-- _layouts/distill.html --><html>
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <!-- Metadata, OpenGraph and Schema.org -->
+    
+    
+
+    <!-- Standard metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Health bar and recovery | Daniel Martinez Amigo</title>
+    <meta name="author" content="Daniel Martinez Amigo">
+    <!--
+    <meta name="description" content="Recreating the destiny 2 health bar and recovery system using materials, UMG and GAS." />
+        -->
+
+
+    <!-- Bootstrap & MDB -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-DF7Zhf293AJxJNTmh5zhoYYIMs2oXitRfBjY+9L//AY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.19.1/css/mdb.min.css" integrity="sha512-RO38pBRxYH3SoOprtPTD86JFOclM51/XTIdEPh5j8sj4tp8jmQIx26twG52UaLi//hQldfrh7e51WzP9wuP32Q==" crossorigin="anonymous">
+
+    <!-- Bootstrap Table -->
+    <link defer rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons">
+
+    <!-- Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="" id="highlight_theme_light">
+
+    
+
+    <!-- Styles -->
+    
+    <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%8F%94%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="/devpost/Healthbar/">
+
+    <!-- Dark Mode -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/native.css" media="none" id="highlight_theme_dark">
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/dark_mode.js"></script>
+    
+
+
+
+
+    <!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+    
+<!-- MathJax -->
+<script type="text/javascript">
+  window.MathJax = {
+    tex: {
+      tags: 'ams'
+    }
+  };
+</script>
+<script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js"></script>
+<script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+    <!-- Distill js -->
+    <script src="/assets/js/distillpub/template.v2.js"></script>
+    <script src="/assets/js/distillpub/transforms.v2.js"></script>
+    <script src="/assets/js/distillpub/overrides.js"></script>
+    
+    <!-- Page/Post style -->
+    <style type="text/css">
+      .fake-img {
+  background: #bbb;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px;
+} .fake-img p {
+  font-family: monospace;
+  color: white;
+  text-align: left;
+  margin: 12px 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+    </style>
+  </head>
+
+  <body>
+<d-front-matter>
+    <script async type="text/json">{
+      "title": "Health bar and recovery",
+      "description": "Recreating the destiny 2 health bar and recovery system using materials, UMG and GAS.",
+      "published": "May 22, 2021",
+      "authors": [
+        
+      ],
+      "katex": {
+        "delimiters": [
+          {
+            "left": "$",
+            "right": "$",
+            "display": false
+          },
+          {
+            "left": "$$",
+            "right": "$$",
+            "display": true
+          }
+        ]
+      }
+    }</script>
+  </d-front-matter>
+
+  
+
+    <!-- Header --><header>
+
+  <!-- Nav Bar -->
+  <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top">
+    <div class="container">
+      <a class="navbar-brand title font-weight-lighter" href="/"><span class="font-weight-bold">Daniel </span>Martinez Amigo</a>
+      <!-- Navbar Toggle -->
+      <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+
+          <!-- About -->
+          <li class="nav-item ">
+            <a class="nav-link" href="/">about</a>
+          </li>
+          
+
+          
+
+
+          <!-- Other pages -->
+
+          <li class="nav-item  active">
+            <a class="nav-link" href="/portfolio/">Projects</a>
+          </li>
+<!-- Curriculum  -->
+           <li class="nav-item">
+            <a class="nav-link" target="_blank" href="/assets/pdf/CV_DanielMartinezAmigo.pdf">cv</a>
+          </li>
+
+          <!-- Toogle theme mode -->
+          <li class="toggle-container">
+            <button id="light-toggle" title="Change theme">
+              <i class="fas fa-moon"></i>
+              <i class="fas fa-sun"></i>
+            </button>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Scrolling Progress Bar -->
+  <progress id="progress" value="0">
+    <div class="progress-container">
+      <span class="progress-bar"></span>
+    </div>
+  </progress>
+</header>
+
+
+    <!-- Content -->
+    <div class="post distill">
+
+      <d-title>
+        <h1>Health bar and recovery</h1>
+        <p>Recreating the destiny 2 health bar and recovery system using materials, UMG and GAS.</p>
+        <p class="post-tags">
+        <a href="/portfolio/density">
+          <i class="fas fa-undo fa-sm"></i> Back to project</a>  
+          </p>
+      </d-title>
+
+      <!--
+      <d-byline></d-byline>
+      -->
+  
+
+
+
+      <d-article>
+        <d-contents>
+          <nav class="l-text figcaption">
+          <h3>Contents</h3>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2">
+<a href="#introduction">Introduction</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#how-the-healthbar-and-recovery-work-in-destiny-2">How the healthbar and recovery work in Destiny 2</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#health-bar-ui">Health bar UI</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#health-bar-material">Health bar material</a></li>
+<li class="toc-entry toc-h3"><a href="#creating-the-umg-health-bar-widget">Creating the UMG health bar widget</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#health-recovery-system">Health recovery system</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#ga_recovery-gameplay-ability">GA_Recovery Gameplay Ability</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#improvements-to-be-made">Improvements to be made</a></li>
+</ul>
+          <!--
+          
+          -->
+          </nav>
+        </d-contents>
+
+        <h2 id="introduction">Introduction</h2>
+<p>In this article I will show and explain how the healthbar system from Destiny 2 was recreated in Unreal Engine to give the following result.</p>
+
+<div class="l-body">
+        
+
+<figure>
+
+  
+
+  <video src="/assets/video/HealthBar.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""></video>
+
+  
+
+</figure>
+
+</div>
+<div class="caption">
+    Health bar final result video
+</div>
+
+<p>The visual effects are all carried out in a single material within the user widget, while the health recovery is managed using gameplay abilities.</p>
+<h3 id="how-the-healthbar-and-recovery-work-in-destiny-2">How the healthbar and recovery work in Destiny 2</h3>
+<p>In Destiny 2, the healthbar UI is hidden until a player takes damage. Once damage occurs, the healthbar immediatly appears and displays the damage dealt, staying up in the HUD until a players health is fully recovered. The actual healthbar is split into two main sections, the player’s <code class="language-plaintext highlighter-rouge">Shield</code> and the player’s <code class="language-plaintext highlighter-rouge">Health</code>.</p>
+
+<div class="l-body">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/HealthBarDevpost/D2HealthBar.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    Example health bar from Destiny 2
+</div>
+
+<p>The <code class="language-plaintext highlighter-rouge">Shield</code> makes up the first 70% of a players health bar. When the <code class="language-plaintext highlighter-rouge">Shield</code> is damaged but not fully depleted, the bar’s colour remains white. However when the <code class="language-plaintext highlighter-rouge">Shield</code> is broken (apart from audio, visual effects and other potential gameplay related effects triggering), the healthbar becomes red and flashing (When a player’s <code class="language-plaintext highlighter-rouge">Health</code> is full but the <code class="language-plaintext highlighter-rouge">Shield</code> is depleted, the flashing effect stops but the color remains red). After a few seconds of not taking damage the player will start regenerating their <code class="language-plaintext highlighter-rouge">Health</code> and a few seconds after that the <code class="language-plaintext highlighter-rouge">Shield</code> will start regenerating. Any further damage taken will stop the regeneration and start the timer again. The rate of regeneration and the waiting time since the last damage was taken all depend on the player’s <code class="language-plaintext highlighter-rouge">Recovery</code> stat. The <code class="language-plaintext highlighter-rouge">Recovery</code> stat goes from 0 to 100, increasing its efficacy every 10 levels. For example a player with 0 recovery will back to full healthbar  in 9 seconds after being damaged while a player with 100 recovery will achieve the same in 6 seconds.</p>
+
+<h2 id="health-bar-ui">Health bar UI</h2>
+<h3 id="health-bar-material">Health bar material</h3>
+
+<p>The first step was to create a material that would manage the health bar depleting and regenerating based on two float values, <code class="language-plaintext highlighter-rouge">HealthPercent</code> and <code class="language-plaintext highlighter-rouge">ShieldPercent</code> which should be between 0 and 1. To emulate the behaviour explained above the following constraints had to be followed:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">Health</code> must occupy the first 30% of the material and the <code class="language-plaintext highlighter-rouge">Shield</code> the last 70%</li>
+  <li>If <code class="language-plaintext highlighter-rouge">ShieldPercent</code> &gt; 0, then the material colour must be white.</li>
+  <li>If <code class="language-plaintext highlighter-rouge">ShieldPercent</code> = 0 and <code class="language-plaintext highlighter-rouge">HealthPercent</code> = 1, then the material colour must be red</li>
+  <li>If <code class="language-plaintext highlighter-rouge">HealthPercent</code> &lt; 1, then the material colour must be red with a flashing effect for the <code class="language-plaintext highlighter-rouge">Health</code> section and a darker semi-transparent flashing red should also occupy the rest of the material.</li>
+</ul>
+
+<p>Since the material is to be used in the UI, first the <code class="language-plaintext highlighter-rouge">Material Domain</code> was set to <code class="language-plaintext highlighter-rouge">User Interface</code> in the details tab of the material. Then the material was created as follows:</p>
+
+<div class="l-page-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/HealthBarDevpost/HealthBarMaterial.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    Health bar material
+</div>
+
+<p>Next, to create the small border that goes around the main health bar, a material using the SDF box function from the <a href="https://www.unrealengine.com/marketplace/en-US/product/ui-material-lab" rel="external nofollow noopener" target="_blank">UI Material Lab</a> project from Epic Games.</p>
+
+<div class="l-body-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/HealthBarDevpost/BorderMaterial.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    Health bar border material
+</div>
+
+<h3 id="creating-the-umg-health-bar-widget">Creating the UMG health bar widget</h3>
+
+<p>A User Widget blueprint was created as seen below. Each component was placed inside a grid panel with the main two being images for the border and health bar. Then an extra horizontal box with images was placed to match the decoration ornaments around the Destiny 2 health bar.</p>
+
+<div class="l-body-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/HealthBarDevpost/HealthWidget.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    Health bar widget layout
+</div>
+
+<p>For the health bar widget image, a dynamic material instance is created on the widgets pre-construct event, and then it is immediatly asigned to it. A widget animation was created for the health bar fadeout and then the functionality was created using four similar functions seen in the image below. The <code class="language-plaintext highlighter-rouge">FadeOutHealthBar</code> function gets called from C++ when a delegate that monitors the status of the health and shield attributes of the player is fired when they are full and plays the fade out widget animation. The functions which set the value of the <code class="language-plaintext highlighter-rouge">ShieldPercent</code> and <code class="language-plaintext highlighter-rouge">HealthPercent</code> parameters in the dynamic material get called from C++ when an <code class="language-plaintext highlighter-rouge">OnGameplayAttributeValueChanged()</code> delegate for the respective attributes is fired. These functions also call the <code class="language-plaintext highlighter-rouge">ShowHealthBar</code> function which instantly shows the health bar on the players HUD (doing the opposite of the FadeOutHealthBar function but faster)</p>
+
+<div class="l-page-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/HealthBarDevpost/Functions.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    Health bar widget functions
+</div>
+
+<h2 id="health-recovery-system">Health recovery system</h2>
+
+<p>The health recovery system as well as most of the gameplay logic of this project uses Unreal’s Gameplay Ability System. (A very good starting resource can be found in <a href="https://github.com/tranek/GASDocumentation" rel="external nofollow noopener" target="_blank">Tranek’s GAS documentation</a>).</p>
+
+<p>First, the recovery system becomes functional thanks to the <code class="language-plaintext highlighter-rouge">GA_RecentlyDamaged</code> and <code class="language-plaintext highlighter-rouge">GA_OnShieldBroken</code> Gameplay Abilities <code class="language-plaintext highlighter-rouge">GA</code> (These are triggered from events that are handled by the <a href="/devpost/DamagePipeline/">Damage Pipeline</a>). Their main functionality is to apply a Gameplay Effect <code class="language-plaintext highlighter-rouge">GE</code> that applies the <code class="language-plaintext highlighter-rouge">State.Combat.RecentlyDamaged</code> and <code class="language-plaintext highlighter-rouge">State.Combat.ShieldBroken</code> gameplay tags to the player damaged respectively.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">State.Combat.ShieldBroken</code> is applied by an <em>infinite</em> <code class="language-plaintext highlighter-rouge">GE</code> that will later be removed within the <code class="language-plaintext highlighter-rouge">GA_Recovery</code> gameplay ability.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">State.Combat.RecentlyDamaged</code> is applied by a  <em>duration</em> <code class="language-plaintext highlighter-rouge">GE</code>, which determines its duration using the player’s <code class="language-plaintext highlighter-rouge">Recovery</code> attribute and a curve table as follows:</p>
+
+<div class="l-body">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/HealthBarDevpost/RecovCurveTable.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    Recovery curve table
+</div>
+
+<div class="l-page-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/HealthBarDevpost/GETagApply.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    Gameplay tag application gameplay effects
+</div>
+
+<p>Once the <code class="language-plaintext highlighter-rouge">State.Combat.RecentlyDamaged</code> is applied to a player, the <code class="language-plaintext highlighter-rouge">GA_Recovery</code> ability is automatically activated and handles the rest of the recovery system.</p>
+
+<h3 id="ga_recovery-gameplay-ability">GA_Recovery Gameplay Ability</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">GA_Recovery</code> ability is set up to activate when the <code class="language-plaintext highlighter-rouge">State.Combat.RecentlyDamaged</code> is added to the player’s Ability System Component (<code class="language-plaintext highlighter-rouge">ASC</code>). Once the ability is activated it starts up an ability task which will wait for the tag to be removed (which will happen a few seconds after the player stops taking damage depending on the <code class="language-plaintext highlighter-rouge">Recovery</code> attribute).</p>
+
+<div class="l-body-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/HealthBarDevpost/RecoveryGA.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    GA_Recovery ability activation and end events
+</div>
+
+<p>If at any point the player receives damage and the tag is newly added, the ability will cancel, cancelling the main timer handle and will start from the beggining (wait for the tag to be removed …etc).</p>
+
+<p>The main recovery tick event gets executed once every 16ms from the <code class="language-plaintext highlighter-rouge">Set Timer by Event</code> node set to looping. On every execution, the health recovery <em>instant</em> <code class="language-plaintext highlighter-rouge">GE</code> is applied to the player, which increments the player’s <code class="language-plaintext highlighter-rouge">Health</code> attribute by a small amount depending on <code class="language-plaintext highlighter-rouge">Recovery</code> attribute. This small amount is obtained from the curve table shown previously. On the first execution of the <code class="language-plaintext highlighter-rouge">RecoveryTick</code> event, if the <code class="language-plaintext highlighter-rouge">State.Combat.ShieldBroken</code> tag is present, a timer (whose duration again is extracted from the recovery curve table) will be started after which the <code class="language-plaintext highlighter-rouge">GE</code> that added that tag will be removed from the player and thus removing that tag. After that tag is removed, every further execution of the event will also apply an  <em>instant</em> <code class="language-plaintext highlighter-rouge">GE</code> which increments the player’s <code class="language-plaintext highlighter-rouge">Shield</code> attribute.</p>
+
+<div class="l-page-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/HealthBarDevpost/RecoveryTick.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    GA_Recovery RecoveryTick event logic
+</div>
+
+<p>At the end of each execution, the current value of the <code class="language-plaintext highlighter-rouge">Health</code> and <code class="language-plaintext highlighter-rouge">Shield</code> attributes are compared to the <code class="language-plaintext highlighter-rouge">MaxHealth</code> and <code class="language-plaintext highlighter-rouge">MaxShield</code> attributes to determine if the health bar is completely full, at which point the gameplay ability will end.</p>
+
+<h2 id="improvements-to-be-made">Improvements to be made</h2>
+
+<p>While the main functionality of the health bar is finished, a few improvements to the damage taking system will still be made. Currently, a Gameplay Cue <code class="language-plaintext highlighter-rouge">GC</code> is executed every time a player takes damage to perform a small screen shake, however this feedback will be eventually improved to add the following:</p>
+
+<ul>
+  <li>A blood/red effect around the screen when the player takes damage handled by.</li>
+  <li>Different first person flinch animations on the players first person model.</li>
+  <li>Niagara particle effect representing the shield being broken around the player when the player’s shield is broken.</li>
+  <li>Add audio cues to these effects.</li>
+</ul>
+
+<p><a href="#"><i class="fas fa-arrow-up fa-sm"></i> Back to top</a></p>
+
+<p><a href="/portfolio/density/"><i class="fas fa-undo fa-sm"></i> Back to project</a></p>
+
+      </d-article>
+
+    <!-- 
+      <d-appendix>
+        <d-footnote-list></d-footnote-list>
+        <d-citation-list></d-citation-list>
+      </d-appendix>
+    -->
+    
+      <d-bibliography src="/assets/bibliography/"></d-bibliography>
+</div>
+
+    <!-- Footer -->
+<footer class="fixed-bottom">
+  <div class="container mt-0">
+    © Copyright 2024 Daniel Martinez Amigo.
+    Powered by <a href="http://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> based on <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme.
+
+    
+    
+  </div>
+</footer>
+
+
+
+    <!-- Bootsrap & MDB scripts
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.4/umd/popper.min.js" integrity="sha512-eUQ9hGdLjBjY3F41CScH3UX+4JDSI9zXeroz7hJ+RteoCaY+GP/LDoM8AO+Pt+DRFw3nXqsjh9Zsts8hnYv8/A==" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.1/js/bootstrap.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js" integrity="sha512-Mug9KHKmroQFMLm93zGrjhibM2z2Obg9l6qFG2qKjXEXkMp/VDkI4uju9m4QKPjWSwQ6O2qzZEnJDEeCw0Blcw==" crossorigin="anonymous"></script>
+ -->
+<!-- Bootsrap & MDB scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.19.1/js/mdb.min.js" integrity="sha512-Mug9KHKmroQFMLm93zGrjhibM2z2Obg9l6qFG2qKjXEXkMp/VDkI4uju9m4QKPjWSwQ6O2qzZEnJDEeCw0Blcw==" crossorigin="anonymous"></script>
+
+    
+    
+
+<!-- Scrolling Progress Bar -->
+<script type="text/javascript">
+  /*
+   * This JavaScript code has been adapted from the article 
+   * https://css-tricks.com/reading-position-indicator/ authored by Pankaj Parashar, 
+   * published on the website https://css-tricks.com on the 7th of May, 2014.
+   * Couple of changes were made to the original code to make it compatible 
+   * with the `al-foio` theme.
+   */
+  const progressBar = $("#progress");
+  /*
+   * We set up the bar after all elements are done loading.
+   * In some cases, if the images in the page are larger than the intended
+   * size they'll have on the page, they'll be resized via CSS to accomodate
+   * the desired size. This mistake, however, breaks the computations as the
+   * scroll size is computed as soon as the elements finish loading.
+   * To account for this, a minimal delay was introduced before computing the
+   * values.
+   */
+  window.onload = function () {
+    setTimeout(progressBarSetup, 50);
+  };
+  /*
+   * We set up the bar according to the browser.
+   * If the browser supports the progress element we use that.
+   * Otherwise, we resize the bar thru CSS styling
+   */
+  function progressBarSetup() {
+    if ("max" in document.createElement("progress")) {
+      initializeProgressElement();
+      $(document).on("scroll", function() {
+        progressBar.attr({ value: getCurrentScrollPosition() });
+      });
+      $(window).on("resize", initializeProgressElement);
+    } else {
+      resizeProgressBar();
+      $(document).on("scroll", resizeProgressBar);
+      $(window).on("resize", resizeProgressBar);
+    }
+  }
+  /*
+   * The vertical scroll position is the same as the number of pixels that
+   * are hidden from view above the scrollable area. Thus, a value > 0 is
+   * how much the user has scrolled from the top
+   */
+  function getCurrentScrollPosition() {
+    return $(window).scrollTop();
+  }
+
+  function initializeProgressElement() {
+    let navbarHeight = $("#navbar").outerHeight(true);
+    $("body").css({ "padding-top": navbarHeight });
+    $("progress-container").css({ "padding-top": navbarHeight });
+    progressBar.css({ top: navbarHeight });
+    progressBar.attr({
+      max: getDistanceToScroll(),
+      value: getCurrentScrollPosition(),
+    });
+  }
+  /*
+   * The offset between the html document height and the browser viewport
+   * height will be greater than zero if vertical scroll is possible.
+   * This is the distance the user can scroll
+   */
+  function getDistanceToScroll() {
+    return $(document).height() - $(window).height();
+  }
+
+  function resizeProgressBar() {
+    progressBar.css({ width: getWidthPercentage() + "%" });
+  }
+  // The scroll ratio equals the percentage to resize the bar
+  function getWidthPercentage() {
+    return (getCurrentScrollPosition() / getDistanceToScroll()) * 100;
+  }
+</script>
+
+    <!-- Medium Zoom JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+    <script defer src="/assets/js/zoom.js"></script>
+</body>
+</html>
