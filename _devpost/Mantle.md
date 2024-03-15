@@ -41,7 +41,6 @@ _styles: >
   }
 
 ---
-# (Under construction, full devblog soon)
 
 ## Introduction
 
@@ -144,7 +143,34 @@ The final step before handling the mantle movement and animations is to set the 
 
 The main movement of the mantle is performed using Unreal Engine 5's motion warping plugin. This plugin allows syncing animation root motion to end up in specific positions and is extremely usful for a task such as this one. For each of the mantle types (short and tall), a third person and first person character animation is needed. The motion warping is driven by the third person animation, as this animation will paly on both the client and the server, while the first person animation is cosmetic and thus client only (since the client is the only one that can see first person animations)
 
+<div class="l-body">
+  {% include figure.html path="assets/img/MantleDevpost/MantleAnim.gif" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+<div class="caption">
+   Mantle third person animation. Root motion is disabled in the video example to ilustrate the motion of the animation.
+</div>
 
+The motion warping is divided into two sections inside of the animation montage, one for the vertical movement the character does to get to the ledge and another for the horizontal movement to step onto the ledge:
+<div class="l-body">
+  {% include figure.html path="assets/img/MantleDevpost/Warp.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+
+
+With the motion warp set up on the animation montage, the next step is to set the warp targets for both the vertical and horizontal movement just before playing the animation:
+
+<div class="l-body">
+  {% include figure.html path="assets/img/MantleDevpost/SetMotionWarp.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+
+
+The final step is playing the correct mantle animations. If a tall mantle is needed a final check is done to see if the player is looking in the general direction of the ledge. Then the movement mode of the player is set to `Flying` while the vertical motion warping is playing and the variable `IsMantling` is set to true until the animation finishes playing. If the player is locally controlled, the first person animation also plays:
+
+<div class="l-page-outset">
+  {% include figure.html path="assets/img/MantleDevpost/PlayAnim.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+</div>
+<div class="caption">
+   Play animations mantle animations. The upward execution lines go back to the start to break out of the trace for loop.
+</div>
 
 ## Improvements to be made
 
