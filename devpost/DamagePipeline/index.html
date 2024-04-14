@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<!-- _layouts/distill.html --><html>
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <!-- Metadata, OpenGraph and Schema.org -->
+    
+    
+
+    <!-- Standard metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Damage pipeline | Daniel Martinez Amigo</title>
+    <meta name="author" content="Daniel Martinez Amigo">
+    <!--
+    <meta name="description" content="Extending Unreal Engine's Gameplay Ability System to implement a damage pipeline capable of supporting Destiny 2's complex damage calculations, weapon perks and abilities." />
+        -->
+
+
+    <!-- Bootstrap & MDB -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-DF7Zhf293AJxJNTmh5zhoYYIMs2oXitRfBjY+9L//AY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.19.1/css/mdb.min.css" integrity="sha512-RO38pBRxYH3SoOprtPTD86JFOclM51/XTIdEPh5j8sj4tp8jmQIx26twG52UaLi//hQldfrh7e51WzP9wuP32Q==" crossorigin="anonymous">
+
+    <!-- Bootstrap Table -->
+    <link defer rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons">
+
+    <!-- Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="" id="highlight_theme_light">
+
+    
+
+    <!-- Styles -->
+    
+    <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%8F%94%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="/devpost/DamagePipeline/">
+
+    <!-- Dark Mode -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/native.css" media="none" id="highlight_theme_dark">
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/dark_mode.js"></script>
+    
+
+
+
+
+    <!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+    
+<!-- MathJax -->
+<script type="text/javascript">
+  window.MathJax = {
+    tex: {
+      tags: 'ams'
+    }
+  };
+</script>
+<script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js"></script>
+<script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+    <!-- Distill js -->
+    <script src="/assets/js/distillpub/template.v2.js"></script>
+    <script src="/assets/js/distillpub/transforms.v2.js"></script>
+    <script src="/assets/js/distillpub/overrides.js"></script>
+    
+  </head>
+
+  <body>
+<d-front-matter>
+    <script async type="text/json">{
+      "title": "Damage pipeline",
+      "description": "Extending Unreal Engine's Gameplay Ability System to implement a damage pipeline capable of supporting Destiny 2's complex damage calculations, weapon perks and abilities.",
+      "published": "May 22, 2021",
+      "authors": [
+        
+      ],
+      "katex": {
+        "delimiters": [
+          {
+            "left": "$",
+            "right": "$",
+            "display": false
+          },
+          {
+            "left": "$$",
+            "right": "$$",
+            "display": true
+          }
+        ]
+      }
+    }</script>
+  </d-front-matter>
+
+  
+
+    <!-- Header --><header>
+
+  <!-- Nav Bar -->
+  <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top">
+    <div class="container">
+      <a class="navbar-brand title font-weight-lighter" href="/"><span class="font-weight-bold">Daniel </span>Martinez Amigo</a>
+      <!-- Navbar Toggle -->
+      <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+
+          <!-- About -->
+          <li class="nav-item ">
+            <a class="nav-link" href="/">about</a>
+          </li>
+          
+
+          
+
+
+          <!-- Other pages -->
+
+          <li class="nav-item  active">
+            <a class="nav-link" href="/portfolio/">Projects</a>
+          </li>
+<!-- Curriculum  -->
+           <li class="nav-item">
+            <a class="nav-link" target="_blank" href="/assets/pdf/CV_DanielMartinezAmigo.pdf">cv</a>
+          </li>
+
+          <!-- Toogle theme mode -->
+          <li class="toggle-container">
+            <button id="light-toggle" title="Change theme">
+              <i class="fas fa-moon"></i>
+              <i class="fas fa-sun"></i>
+            </button>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Scrolling Progress Bar -->
+  <progress id="progress" value="0">
+    <div class="progress-container">
+      <span class="progress-bar"></span>
+    </div>
+  </progress>
+</header>
+
+
+    <!-- Content -->
+    <div class="post distill">
+
+      <d-title>
+        <h1>Damage pipeline</h1>
+        <p>Extending Unreal Engine's Gameplay Ability System to implement a damage pipeline capable of supporting Destiny 2's complex damage calculations, weapon perks and abilities.</p>
+        <p class="post-tags">
+        <a href="/portfolio/density">
+          <i class="fas fa-undo fa-sm"></i> Back to project</a>  
+          </p>
+      </d-title>
+
+      <!--
+      <d-byline></d-byline>
+      -->
+  
+
+
+
+      <d-article>
+        <d-contents>
+          <nav class="l-text figcaption">
+          <h3>Contents</h3>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2">
+<a href="#introduction">Introduction</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#buffs-debuffs-weapon-perks-and-damage-in-destiny-2">Buffs, debuffs, weapon perks and damage in Destiny 2</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#gas-damage-pipeline">GAS Damage pipeline</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#gas-damage-container">GAS Damage Container</a></li>
+<li class="toc-entry toc-h3"><a href="#custom-gameplay-effect-context">Custom Gameplay Effect Context</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#example-uses-of-the-damage-pipeline">Example uses of the Damage Pipeline</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#rampage-weapon-perk-damage-buff-example">Rampage weapon perk damage buff example</a></li>
+<li class="toc-entry toc-h3"><a href="#echo-of-undermining-grenade-perk-example">Echo of undermining grenade perk example</a></li>
+</ul>
+</li>
+</ul>
+          <!--
+          
+          -->
+          </nav>
+        </d-contents>
+
+        <h2 id="introduction">Introduction</h2>
+
+<p>This article explores how the damage pipeline used in the project works and how it uses the Gameplay Ability System to do so. It also gives some examples of its use to apply weapon and ability damage with some custom perks and effects found in Destiny 2 such as Rampage and Echo of Undermining vortex grenades.</p>
+
+<div class="l-body">
+        
+
+<figure>
+
+  
+
+  <video src="/assets/video/DamagePipeline.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""></video>
+
+  
+
+</figure>
+
+</div>
+<div class="caption">
+    Example video of using a weapon with the damage perk Rampage and a Vortex grenade that applies a 15% weaken effect to targets <a href="#example-uses-of-the-damage-pipeline">(Detailed explanation below)</a>. Kills with a weapon also give 20% grenade energy back.
+</div>
+
+<h3 id="buffs-debuffs-weapon-perks-and-damage-in-destiny-2">Buffs, debuffs, weapon perks and damage in Destiny 2</h3>
+
+<p>Destiny 2 is a complex first person shooter game that implements many elements from rpg and mmo games. Characters in the game have a wide variety of abilities and weapons and every one of these can have many different perks and modifications that apply effects on the player and enemies from simple stat and damage buffs to crazier effects that heavily alter the players gameplay.</p>
+
+<p>The damage system in Destiny 2 also supports different types of buffs and debuffs some of which stack and some only use the highest effect applied. Weapons and abilities can also deal elemental damage of which there are 3 in Destiny 2 (<em>Arc</em>, <em>Solar</em> and <em>Void</em>). Any of the buffs and debuffs in the game can have the possibility of only affecting a specefic damage type from a specific source, eg: a player could have an effect that gives an increase in damage to <em>Void</em> grenade abilities.</p>
+
+<p>As a general rule however Destiny 2 has 4 main types of buffs/debuffs:</p>
+
+<ul>
+  <li>
+    <p><em>Empower</em> effects buff the damage dealt by weapons and only the highest empower buff applied affects the player.</p>
+  </li>
+  <li>
+    <p><em>Surge</em> effects buff the damage dealt by weapons and are tied to a specific element and only the highest empower buff applied affects the player.</p>
+  </li>
+  <li>
+    <p><em>Weaken</em> effects increase the damage taken by a target from all sources and only the highest weaken effect applied affects the target.</p>
+  </li>
+  <li>
+    <p>Any other type of damage increase that doesnt belong to the above such as those originating from weapon perks stacks can be stacked infinately.</p>
+  </li>
+</ul>
+
+<p>In order to  to simulate this behaviour in UE5, a custom damage pipeline that uses the Gameplay Ability System was created.</p>
+
+<h2 id="gas-damage-pipeline">GAS Damage pipeline</h2>
+<p>The damage pipeline is the series of functions and abilities that handle all of the buffs debuffs and effects that can alter the damage dealt by the player’s abilities and weapons. The concept of using a damage pipeline to handle damage in a modular and extensible way was inspired by this excellent post: <a href="https://www.vitorcantao.com/post/gas-gameplay-framework/" rel="external nofollow noopener" target="_blank">A Gameplay Framework with GAS based on Risk of Rain 2</a> by Vitor Cantão in which he reproduces the game Risk of Rain 2’s gameplay systems using GAS.</p>
+
+<p>The damage pipeline created for Density processes all damage using mostly meta-attributes. These are altered by gameplay effects and abilities by responding to gameplay events at different points in the damage pipeline. Each character that can be damaged has the following attributes and meta-attributes (Meta attributes are not replicated and they are manually reset to their base value of 1.0 after each execution of the damage pipeline. See <a href="https://github.com/tranek/GASDocumentation#433-meta-attributes" rel="external nofollow noopener" target="_blank">GAS Documentation</a> for more info on meta attributes):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Attribute</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Health/MaxHealth</td>
+      <td>The characters health. When reaching 0 it activates OnKill and OnDeath effects on the instigator and itself respectively</td>
+    </tr>
+    <tr>
+      <td>Shield/MaxShield</td>
+      <td>The characters shield. If its &gt; 0 then damage will first apply to the shield before health. On reaching 0 activates OnShieldBroken effects</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Meta Attribute</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>OutgoingDamage</td>
+      <td>Base damage of the ability, can be increased by infinitely stacking multipliers in <em>ModifyOutgoingDamage</em> events.</td>
+    </tr>
+    <tr>
+      <td>OutgoingEmpowerBuff</td>
+      <td>Separate damage bucket buff. Only the highest applied EmpowerBuff on a character should modify this value <em>ModifyOutgoingDamage</em> events.</td>
+    </tr>
+    <tr>
+      <td>OutgoingSurgeBuff</td>
+      <td>Separate damage bucket buff. Only the highest applied SurgeBuff on a character should modify this value in <em>ModifyOutgoingDamage</em> events.</td>
+    </tr>
+    <tr>
+      <td>IncomingDamage</td>
+      <td>Initial incoming damage on the target. Usually equal to <code class="language-plaintext highlighter-rouge">OutgoingDamage</code> * <code class="language-plaintext highlighter-rouge">OutgoingEmpowerBuff</code> * <code class="language-plaintext highlighter-rouge">OutgoingSurgeBuff</code> from the instigator.</td>
+    </tr>
+    <tr>
+      <td>IncomingWeakenDebuff</td>
+      <td>Amplifies the damage taken. Only the highest debuff should modify this value in <em>ModifyIncomingDamage</em> events.</td>
+    </tr>
+    <tr>
+      <td>IncomingDamageResistBuff</td>
+      <td>Any damage resistance buffs that the target has should be multiplied to this value in abilities responding to the <em>ModifyIncomingDamage</em> event.</td>
+    </tr>
+    <tr>
+      <td>DamageTaken</td>
+      <td>Damage applied to target, usually equal to <code class="language-plaintext highlighter-rouge">IncomingDamage</code> * <code class="language-plaintext highlighter-rouge">IncomingWeakenDebuff</code> * <code class="language-plaintext highlighter-rouge">IncomingDamageResistBuff</code>. The targets health and shield is reduced in the <em>PostGameplayEffectExecute()</em> function based on this value</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When executing the damage pipeline, the main flowchart of operations is the following:</p>
+
+<div class="l-page-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/DamagePipelineDevpost/PipelineFlowchart.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    Damage pipeline flowchart
+</div>
+
+<p>The main steps explained are the following:</p>
+
+<ol>
+  <li>The first step is applying the <a href="#gas-damage-container">Damage Container</a>. As explained more in detail below it contains the <code class="language-plaintext highlighter-rouge">BaseDamageEffect</code>, the <code class="language-plaintext highlighter-rouge">DamageApplicationEffect</code> and a <em>GameplayTagContainer</em> for the abilities <code class="language-plaintext highlighter-rouge">DamageType</code>.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">BaseDamageEffect</code> is applied to the instigator, overriding the <code class="language-plaintext highlighter-rouge">OutgoingDamage</code> attribute with the abilitiy’s base damage.</li>
+  <li>The <em>ModifyOutgoingDamage</em> event is fired on the instigator’s <code class="language-plaintext highlighter-rouge">ASC</code>(Ability System Component). Any ability meant to modify <code class="language-plaintext highlighter-rouge">OutgoingDamage</code>, <code class="language-plaintext highlighter-rouge">OutgoingEmpowerBuff</code> or <code class="language-plaintext highlighter-rouge">OutgoingSurgeBuff</code> should respond to this event and apply its effects based on the abilities <code class="language-plaintext highlighter-rouge">DamageType</code> tags.</li>
+  <li>Process the <code class="language-plaintext highlighter-rouge">OutgoingDamage</code>, <code class="language-plaintext highlighter-rouge">OutgoingEmpowerBuff</code> or <code class="language-plaintext highlighter-rouge">OutgoingSurgeBuff</code> attributes by multiplying them together, then setting the value as the targets <code class="language-plaintext highlighter-rouge">IncomingDamage</code>.</li>
+  <li>Modify the incoming damage based on the target data, eg: If the <code class="language-plaintext highlighter-rouge">DamageType</code> tag is for a weapon and the weapon can critically strike, if the target hit is a weakspot multiply by the weapon’s <code class="language-plaintext highlighter-rouge">CritDamageModifier</code> attribute.</li>
+  <li>The <em>BeforeDamage</em> event is fired on the targets’s <code class="language-plaintext highlighter-rouge">ASC</code>. Any ability meant to apply an effect to the target before damage is calculated should respond to this event and apply its effects based on the abilities <code class="language-plaintext highlighter-rouge">DamageType</code> tags.</li>
+  <li>The <em>ModifyIncomingDamage</em> event is fired on the targets’s <code class="language-plaintext highlighter-rouge">ASC</code>. Any ability that modifies the <code class="language-plaintext highlighter-rouge">IncomingDamage</code>, <code class="language-plaintext highlighter-rouge">IncomingWeakenDebuff</code> or <code class="language-plaintext highlighter-rouge">IncomingDamageResistBuff</code> should respond to this event and apply its effects based on the abilities <code class="language-plaintext highlighter-rouge">DamageType</code> tags.</li>
+  <li>The <code class="language-plaintext highlighter-rouge">DamageApplicationEffect</code> is applied to the target. This <code class="language-plaintext highlighter-rouge">GE</code> calculates the final damage and sets the target’s <code class="language-plaintext highlighter-rouge">DamageTaken</code> attribute. The <em>PostGameplayEffectExecute()</em> will then handle applying that attribute to the target’s <code class="language-plaintext highlighter-rouge">Shield</code> and  <code class="language-plaintext highlighter-rouge">Health</code> attributes as well as triggering the <em>OnKill</em>, <em>OnShieldBroken</em> and <em>OnDeath</em> events on the instigator, and targets respectively.</li>
+  <li>Send the <em>OnHitEffect</em> event on the instigator’s <code class="language-plaintext highlighter-rouge">ASC</code> so that any on-hit abilities can trigger by activating with this event.</li>
+  <li>If all targets for this container haven’t been processed, go back to step 4.</li>
+</ol>
+
+<h3 id="gas-damage-container">GAS Damage Container</h3>
+
+<p>The concept of damage containers are based on Epic’s Action RPG Sample <code class="language-plaintext highlighter-rouge">FGameplayEffectContainer</code> and Vitor Cantão’ post. A damage container provides some quality of life features such as automatically handling the damage pipeline in its entirety and simplifying adding damage to projectile based abilities. Every Gameplay Ability deriving from <code class="language-plaintext highlighter-rouge">FDensGameplayAbility</code> has access to the <code class="language-plaintext highlighter-rouge">ApplyDamageContainer</code> variety of nodes, which should be used to apply the abilities damage to targets. The <code class="language-plaintext highlighter-rouge">FDensDamageContainer</code> class contains:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">BaseDamageEffect</code> and <code class="language-plaintext highlighter-rouge">DamageApplicationEffect</code> classes which are Gameplay Effects.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">DamageType</code> <em>GameplayTagContainer</em> which determines what kind of damage to apply. If for example the damage of a grenade ability has the tag <code class="language-plaintext highlighter-rouge">DamageType.Ability.Grenade</code>, this abilities damage will not get increased by effects that buff weapon damage with tag <code class="language-plaintext highlighter-rouge">DamageType.Weapon</code>.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">bDamageCanCrit</code> <em>boolean</em> determines wether the ability should ever apply a crit modifier buff to the ability. For example most abilities and some weapons in Destiny 2 such as fusion rifles do not receive a bonus for hitting an enemy’s weakspot.</li>
+</ul>
+
+<p>Gameplay abilities derived from <code class="language-plaintext highlighter-rouge">FDensGameplayAbility_Damage</code> have a default <code class="language-plaintext highlighter-rouge">FDensDamageContainer</code> that can be edited in the class defaults, that gets applied by when calling the <code class="language-plaintext highlighter-rouge">ApplyDamageContainer</code> node. However as an example, if one needs to send a damage container to a grenade ability, which applies the damage in a projectile separate from the original ability, a <em>DamageContainerSpec</em> can be created from a container then passed as an argument to the projectile and applied later.</p>
+
+<div class="l-body">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/DamagePipelineDevpost/DamageContainerBP_Native.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    Native use of damage container from WeaponFire ability
+</div>
+
+<div class="l-body-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/DamagePipelineDevpost/DamageContainerBP_External.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    Manually creating DamageContainer to use later in a projectile ability. Green comment represents the projectile's separate blueprint.
+</div>
+
+<h3 id="custom-gameplay-effect-context">Custom Gameplay Effect Context</h3>
+
+<p>In order to send around important data around multiple gamplay abilities such as the abilities <code class="language-plaintext highlighter-rouge">DamageType</code> tags, a custom Gamplay Effect Context was used. (<a href="https://www.thegames.dev/?p=62" rel="external nofollow noopener" target="_blank">Here is a great tutorial on how to do this</a>). The fustom <code class="language-plaintext highlighter-rouge">FDensGameplayEffectContext</code> contains a <code class="language-plaintext highlighter-rouge">GameplayTagContainer</code> to hold the <code class="language-plaintext highlighter-rouge">DamageType</code> tags as well as some other variables such as <code class="language-plaintext highlighter-rouge">bIsCriticalHit</code> and <code class="language-plaintext highlighter-rouge">bIsCriticalHit</code> which can be used to send information to Gameplay Cues about the damage effect for visual feedback later on.</p>
+
+<p>When firing any of the events in the damage pipeline above, the custom gameplay effect context is also sent along with it in order to be able to access the <code class="language-plaintext highlighter-rouge">DamageType</code> tags to check if an effect should apply to a damage type or not.</p>
+
+<h2 id="example-uses-of-the-damage-pipeline">Example uses of the Damage Pipeline</h2>
+
+<h3 id="rampage-weapon-perk-damage-buff-example">Rampage weapon perk damage buff example</h3>
+
+<div class="l-body">
+        
+
+<figure>
+
+  
+
+  <video src="/assets/video/RampageExample.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""></video>
+
+  
+
+</figure>
+
+</div>
+<div class="caption">
+    Rampage perk gives stacking damage buff when getting kills with a weapon.
+</div>
+
+<p>Rampage is a very popular weapon perk inside of Destiny 2. It is a perk that gives a stacking damage buff when the player defeats an enemy with the weapon that has the perk. The buff lasts for 4.5 seconds and if the user gets another kill within that time the Rampage stacks increase up to a maximum of 3. If the buff timer runs out the stacks reset to 0.</p>
+
+<ul>
+  <li>Rampage x1 gives a 10% damage increase</li>
+  <li>Rampage x2 gives a 21% damage increase</li>
+  <li>Rampage x3 gives a 33% damage increase</li>
+</ul>
+
+<p>To recreate this using the Density damage pipeline we need two <code class="language-plaintext highlighter-rouge">GA</code>, two <code class="language-plaintext highlighter-rouge">GE</code> and a curve table to hold the damage increases values for each stack:</p>
+
+<div class="l-body">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/DamagePipelineDevpost/RampageBP.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+
+<p>The <code class="language-plaintext highlighter-rouge">GA_RampagePerk</code> is added to the player’s <code class="language-plaintext highlighter-rouge">ASC</code> when the player equips a weapon that has the perk on its <code class="language-plaintext highlighter-rouge">AbiltySet</code>. (<a href="https://github.com/danimtz/DensityUE5/blob/master/Source/Density/Ability/DensAbilitySet.cpp#L94" rel="external nofollow noopener" target="_blank">The adding of the ability is handled in C++</a>)</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">GA_RampagePerk</code> is activated by responding to the <em>OnKill</em> event. Then if the <code class="language-plaintext highlighter-rouge">DamageType</code> tag matches <code class="language-plaintext highlighter-rouge">DamageType.Weapon</code>, the <code class="language-plaintext highlighter-rouge">GE_RampagePerk</code> is applied to the player, the ability then checks the number of stacks of <code class="language-plaintext highlighter-rouge">GE_RampagePerk</code> on the <code class="language-plaintext highlighter-rouge">ASC</code> and sets the ability level corresponding to the number of stacks.</p>
+
+<p><code class="language-plaintext highlighter-rouge">GE_RampagePerk</code> is an duration based <code class="language-plaintext highlighter-rouge">GE</code> that stacks up to 3 times, and lasts 4.5 seconds. It also grants the player the <code class="language-plaintext highlighter-rouge">GA_RamageBuff</code> ability. This is the main ability which responds to the <em>ModifyOutgoingDamage</em> event and modifies the <code class="language-plaintext highlighter-rouge">OutgoingDamage</code> attribute by applying the <code class="language-plaintext highlighter-rouge">GE_RampageBuff</code> effect. The amount by which the <code class="language-plaintext highlighter-rouge">OutgoingDamage</code> is multiplied by is extracted from the curve table based on the level of the gameplay effect, which is set to be the same as the ability level set by <code class="language-plaintext highlighter-rouge">GA_RampagePerk</code>.</p>
+
+<p>When the player unequips the weapon with the rampage perk, any stacks of <code class="language-plaintext highlighter-rouge">GE_RampagePerk</code> remaining on the <code class="language-plaintext highlighter-rouge">ASC</code> are removed (<a href="https://github.com/danimtz/DensityUE5/blob/master/Source/Density/Characters/PlayerCharacters/DensWeaponEquipmentComponent.cpp#L521" rel="external nofollow noopener" target="_blank">this is done in C++</a>).</p>
+
+<div class="l-page-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/DamagePipelineDevpost/GA_RampagePerk.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    GA_RampagePerk (top) and GA_RampageBuff (bottom)
+</div>
+
+<div class="l-page-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/DamagePipelineDevpost/RampageGE.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    GE_RampagePerk (left) and GE_RampageBuff (right)
+</div>
+
+<h3 id="echo-of-undermining-grenade-perk-example">Echo of undermining grenade perk example</h3>
+
+<div class="l-body">
+        
+
+<figure>
+
+  
+
+  <video src="/assets/video/UnderminingExample.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""></video>
+
+  
+
+</figure>
+
+</div>
+<div class="caption">
+     Grenade applies a 15% debuff to enemies increasing damage dealt to the target from all sources and making the damage numbers yellow for all sources of damage.
+</div>
+
+<p>In Destiny 2, Echo of Undermining is a fragment(ability) that applies a 15% weaken debuff to an enemy for 5 seconds after a grenade deals damage to it. Weaken debuffs are a type of non-stackable debuff which means that only the highest percent debuff applied should affect a target.</p>
+
+<p>To recreate this using the Density damage pipeline we need two <code class="language-plaintext highlighter-rouge">GA</code> and <code class="language-plaintext highlighter-rouge">GE</code>. First the ability <code class="language-plaintext highlighter-rouge">GA_EchoOfUndermining</code> is added to the player’s <code class="language-plaintext highlighter-rouge">ASC</code>. This ability is activated by the <em>BeforeDamage</em> event in the damage pipeline. It is a simple ability, first it checks that the instigator is not the same as the target (so that self damage from a grenade wont apply a weaken effect to the insitgator) and it also checks that the damage being dealth is of tag <code class="language-plaintext highlighter-rouge">DamageType.Ability.Grenade</code>. If these conditions are met, the <code class="language-plaintext highlighter-rouge">GE_GiveWeaken15Buff</code> is applied to the target for 5 seconds.</p>
+
+<p><code class="language-plaintext highlighter-rouge">GE_GiveWeaken15Buff</code> grants the target the <code class="language-plaintext highlighter-rouge">GA_15WeakenDebuff</code> ability while it is applied and also applies the <code class="language-plaintext highlighter-rouge">Status.Effects.Weakend</code> tag so that other parts of the game can respond to the target being weakened (such as the HUD damage numbers).</p>
+
+<p><code class="language-plaintext highlighter-rouge">GA_15WeakenDebuff</code> is a data-only gameplay ability that derives from <code class="language-plaintext highlighter-rouge">GA_DamageEffect_NonStack</code>, a template ability that was created to handle non-stacking buffs and debuffs (Empower, Surge and Weaken) applied to characters. <code class="language-plaintext highlighter-rouge">GA_15WeakenDebuff</code> has the following inputs and the rest is handled by the parent ability:</p>
+
+<div class="l-body">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/DamagePipelineDevpost/GA_15Weaken.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    GA_15WeakenDebuff parameters
+</div>
+
+<p><code class="language-plaintext highlighter-rouge">GA_DamageEffect_NonStack</code> first checks the current value of the respective buff attribute (weaken in this case) and then only applies the effect value if the <em>StatusEffectPercent</em> variable is higher than the current attribute value. The value of the applied weaken is set using a SetByCaller magnitude on the <code class="language-plaintext highlighter-rouge">GE_WeakenDebuff</code> effect which overrides the value of the <code class="language-plaintext highlighter-rouge">IncomingWeakenDebuff</code> attribute.</p>
+
+<div class="l-page-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/DamagePipelineDevpost/GANonStack.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    GA_DamageEffect_NonStack ability
+</div>
+
+<p><a href="#"><i class="fas fa-arrow-up fa-sm"></i> Back to top</a></p>
+
+<p><a href="/portfolio/density/"><i class="fas fa-undo fa-sm"></i> Back to project</a></p>
+
+
+      </d-article>
+
+    <!-- 
+      <d-appendix>
+        <d-footnote-list></d-footnote-list>
+        <d-citation-list></d-citation-list>
+      </d-appendix>
+    -->
+    
+      <d-bibliography src="/assets/bibliography/"></d-bibliography>
+</div>
+
+    <!-- Footer -->
+<footer class="fixed-bottom">
+  <div class="container mt-0">
+    © Copyright 2024 Daniel Martinez Amigo.
+    Powered by <a href="http://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> based on <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme.
+
+    
+    
+  </div>
+</footer>
+
+
+
+    <!-- Bootsrap & MDB scripts
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.4/umd/popper.min.js" integrity="sha512-eUQ9hGdLjBjY3F41CScH3UX+4JDSI9zXeroz7hJ+RteoCaY+GP/LDoM8AO+Pt+DRFw3nXqsjh9Zsts8hnYv8/A==" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.1/js/bootstrap.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js" integrity="sha512-Mug9KHKmroQFMLm93zGrjhibM2z2Obg9l6qFG2qKjXEXkMp/VDkI4uju9m4QKPjWSwQ6O2qzZEnJDEeCw0Blcw==" crossorigin="anonymous"></script>
+ -->
+<!-- Bootsrap & MDB scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.19.1/js/mdb.min.js" integrity="sha512-Mug9KHKmroQFMLm93zGrjhibM2z2Obg9l6qFG2qKjXEXkMp/VDkI4uju9m4QKPjWSwQ6O2qzZEnJDEeCw0Blcw==" crossorigin="anonymous"></script>
+
+    
+    
+
+<!-- Scrolling Progress Bar -->
+<script type="text/javascript">
+  /*
+   * This JavaScript code has been adapted from the article 
+   * https://css-tricks.com/reading-position-indicator/ authored by Pankaj Parashar, 
+   * published on the website https://css-tricks.com on the 7th of May, 2014.
+   * Couple of changes were made to the original code to make it compatible 
+   * with the `al-foio` theme.
+   */
+  const progressBar = $("#progress");
+  /*
+   * We set up the bar after all elements are done loading.
+   * In some cases, if the images in the page are larger than the intended
+   * size they'll have on the page, they'll be resized via CSS to accomodate
+   * the desired size. This mistake, however, breaks the computations as the
+   * scroll size is computed as soon as the elements finish loading.
+   * To account for this, a minimal delay was introduced before computing the
+   * values.
+   */
+  window.onload = function () {
+    setTimeout(progressBarSetup, 50);
+  };
+  /*
+   * We set up the bar according to the browser.
+   * If the browser supports the progress element we use that.
+   * Otherwise, we resize the bar thru CSS styling
+   */
+  function progressBarSetup() {
+    if ("max" in document.createElement("progress")) {
+      initializeProgressElement();
+      $(document).on("scroll", function() {
+        progressBar.attr({ value: getCurrentScrollPosition() });
+      });
+      $(window).on("resize", initializeProgressElement);
+    } else {
+      resizeProgressBar();
+      $(document).on("scroll", resizeProgressBar);
+      $(window).on("resize", resizeProgressBar);
+    }
+  }
+  /*
+   * The vertical scroll position is the same as the number of pixels that
+   * are hidden from view above the scrollable area. Thus, a value > 0 is
+   * how much the user has scrolled from the top
+   */
+  function getCurrentScrollPosition() {
+    return $(window).scrollTop();
+  }
+
+  function initializeProgressElement() {
+    let navbarHeight = $("#navbar").outerHeight(true);
+    $("body").css({ "padding-top": navbarHeight });
+    $("progress-container").css({ "padding-top": navbarHeight });
+    progressBar.css({ top: navbarHeight });
+    progressBar.attr({
+      max: getDistanceToScroll(),
+      value: getCurrentScrollPosition(),
+    });
+  }
+  /*
+   * The offset between the html document height and the browser viewport
+   * height will be greater than zero if vertical scroll is possible.
+   * This is the distance the user can scroll
+   */
+  function getDistanceToScroll() {
+    return $(document).height() - $(window).height();
+  }
+
+  function resizeProgressBar() {
+    progressBar.css({ width: getWidthPercentage() + "%" });
+  }
+  // The scroll ratio equals the percentage to resize the bar
+  function getWidthPercentage() {
+    return (getCurrentScrollPosition() / getDistanceToScroll()) * 100;
+  }
+</script>
+
+    <!-- Medium Zoom JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+    <script defer src="/assets/js/zoom.js"></script>
+</body>
+</html>

@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<!-- _layouts/distill.html --><html>
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <!-- Metadata, OpenGraph and Schema.org -->
+    
+    
+
+    <!-- Standard metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Weapon HUD, swapping and ammo | Daniel Martinez Amigo</title>
+    <meta name="author" content="Daniel Martinez Amigo">
+    <!--
+    <meta name="description" content="Recreating the weapon HUD, ammo system and weapon swap functionality" />
+        -->
+
+
+    <!-- Bootstrap & MDB -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-DF7Zhf293AJxJNTmh5zhoYYIMs2oXitRfBjY+9L//AY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.19.1/css/mdb.min.css" integrity="sha512-RO38pBRxYH3SoOprtPTD86JFOclM51/XTIdEPh5j8sj4tp8jmQIx26twG52UaLi//hQldfrh7e51WzP9wuP32Q==" crossorigin="anonymous">
+
+    <!-- Bootstrap Table -->
+    <link defer rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.0/css/academicons.min.css" integrity="sha512-W4yqoT1+8NLkinBLBZko+dFB2ZbHsYLDdr50VElllRcNt2Q4/GSs6u71UHKxB7S6JEMCp5Ve4xjh3eGQl/HRvg==" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons">
+
+    <!-- Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="" id="highlight_theme_light">
+
+    
+
+    <!-- Styles -->
+    
+    <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%8F%94%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="/devpost/WeaponHUD/">
+
+    <!-- Dark Mode -->
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/native.css" media="none" id="highlight_theme_dark">
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/dark_mode.js"></script>
+    
+
+
+
+
+    <!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+
+    
+<!-- MathJax -->
+<script type="text/javascript">
+  window.MathJax = {
+    tex: {
+      tags: 'ams'
+    }
+  };
+</script>
+<script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-mml-chtml.js"></script>
+<script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+
+    <!-- Distill js -->
+    <script src="/assets/js/distillpub/template.v2.js"></script>
+    <script src="/assets/js/distillpub/transforms.v2.js"></script>
+    <script src="/assets/js/distillpub/overrides.js"></script>
+    
+    <!-- Page/Post style -->
+    <style type="text/css">
+      .fake-img {
+  background: #bbb;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px;
+} .fake-img p {
+  font-family: monospace;
+  color: white;
+  text-align: left;
+  margin: 12px 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+    </style>
+  </head>
+
+  <body>
+<d-front-matter>
+    <script async type="text/json">{
+      "title": "Weapon HUD, swapping and ammo",
+      "description": "Recreating the weapon HUD, ammo system and weapon swap functionality",
+      "published": "May 22, 2021",
+      "authors": [
+        
+      ],
+      "katex": {
+        "delimiters": [
+          {
+            "left": "$",
+            "right": "$",
+            "display": false
+          },
+          {
+            "left": "$$",
+            "right": "$$",
+            "display": true
+          }
+        ]
+      }
+    }</script>
+  </d-front-matter>
+
+  
+
+    <!-- Header --><header>
+
+  <!-- Nav Bar -->
+  <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top">
+    <div class="container">
+      <a class="navbar-brand title font-weight-lighter" href="/"><span class="font-weight-bold">Daniel </span>Martinez Amigo</a>
+      <!-- Navbar Toggle -->
+      <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+
+          <!-- About -->
+          <li class="nav-item ">
+            <a class="nav-link" href="/">about</a>
+          </li>
+          
+
+          
+
+
+          <!-- Other pages -->
+
+          <li class="nav-item  active">
+            <a class="nav-link" href="/portfolio/">Projects</a>
+          </li>
+<!-- Curriculum  -->
+           <li class="nav-item">
+            <a class="nav-link" target="_blank" href="/assets/pdf/CV_DanielMartinezAmigo.pdf">cv</a>
+          </li>
+
+          <!-- Toogle theme mode -->
+          <li class="toggle-container">
+            <button id="light-toggle" title="Change theme">
+              <i class="fas fa-moon"></i>
+              <i class="fas fa-sun"></i>
+            </button>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Scrolling Progress Bar -->
+  <progress id="progress" value="0">
+    <div class="progress-container">
+      <span class="progress-bar"></span>
+    </div>
+  </progress>
+</header>
+
+
+    <!-- Content -->
+    <div class="post distill">
+
+      <d-title>
+        <h1>Weapon HUD, swapping and ammo</h1>
+        <p>Recreating the weapon HUD, ammo system and weapon swap functionality</p>
+        <p class="post-tags">
+        <a href="/portfolio/density">
+          <i class="fas fa-undo fa-sm"></i> Back to project</a>  
+          </p>
+      </d-title>
+
+      <!--
+      <d-byline></d-byline>
+      -->
+  
+
+
+
+      <d-article>
+        <d-contents>
+          <nav class="l-text figcaption">
+          <h3>Contents</h3>
+          <ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2">
+<a href="#introduction">Introduction</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#weapon-hud-and-ammo-system-in-destiny-2">Weapon HUD and ammo system in Destiny 2</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#ammo-system">Ammo system</a></li>
+<li class="toc-entry toc-h2">
+<a href="#weapon-hud">Weapon HUD</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#weapon-info-widget">Weapon Info Widget</a></li>
+<li class="toc-entry toc-h3"><a href="#weapon-carousel">Weapon Carousel</a></li>
+<li class="toc-entry toc-h3"><a href="#weapon-ordering-algorithm">Weapon Ordering Algorithm</a></li>
+</ul>
+</li>
+</ul>
+          <!--
+          
+          -->
+          </nav>
+        </d-contents>
+
+        <h2 id="introduction">Introduction</h2>
+
+<p>This article expains how the weapon HUD carousel and ammo system works</p>
+
+<div class="l-body">
+        
+
+<figure>
+
+  
+
+  <video src="/assets/video/WeaponHUDDemo.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""></video>
+
+  
+
+</figure>
+
+</div>
+<div class="caption">
+    Final result of the weapon HUD showing current ammo reserves, weapon swapping and ammo pickups
+</div>
+
+<h3 id="weapon-hud-and-ammo-system-in-destiny-2">Weapon HUD and ammo system in Destiny 2</h3>
+
+<p>In Destiny 2 a player always has 3 weapons equipped. Theres also 3 different types of ammunition types:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">Primary</code> ammo weapons do less damage and have infinite ammo</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">Special</code> ammo weapons do more damage and have limited reserves</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">Heavy</code> ammo weapons do considerably more damage have very limited reserves and only one of these weapons can be equipped at a time.</li>
+</ul>
+
+<p>To replenish <code class="language-plaintext highlighter-rouge">Special</code> and <code class="language-plaintext highlighter-rouge">Heavy</code> ammo, Destiny 2 uses a weapon ammo pickup system in which enemies sometimes drop ammo crates when killed, green ammo crates replenish <code class="language-plaintext highlighter-rouge">Special</code> ammo and purple ammo crates replenish <code class="language-plaintext highlighter-rouge">Heavy</code> ammo.</p>
+
+<p>When it comes to the weapon HUD, the currently equipped weapon is always shown on top, while the unequipped weapons are shown minimized below. The order of the unequipped weapons will always try to respect the originally equipped order, and when swapping weapons it will reorder the unequipped weapons accordingly.</p>
+
+<p>When picking up ammo, a small animation plays as well as showing the amount of newly picked ammo on the side of the UI, and the total reserves number is automatically updated. Finally, when a weapon runs out of ammo, the slot for that weapon turns red and the ammo number starts flashing red.</p>
+
+<div class="l-body">
+        
+
+<figure>
+
+  
+
+  <video src="/assets/video/HUD_Destiny2.mp4" class="img-fluid rounded z-depth-1" width="auto" height="auto" autoplay="" controls=""></video>
+
+  
+
+</figure>
+
+</div>
+<div class="caption">
+    Example video of the weapon HUD and swapping inside of Destiny 2
+</div>
+
+<h2 id="ammo-system">Ammo system</h2>
+<p>The player character has a GAS attribute set that holds info for the current equipped weapon. When a weapon is swapped, the data in the attribute set is saved onto a normal set of variables stored in the Player State (so that ammo counts persist even if a player is killed) and the newly equipped weapons saved attributes are loaded onto the GAS attribute set. This is handled by the <a href="https://github.com/danimtz/DensityUE5/blob/master/Source/Density/Characters/PlayerCharacters/DensWeaponEquipmentComponent.h" rel="external nofollow noopener" target="_blank">WeaponEquipmentComponent in C++</a>. The ammo type each weapon uses can be set up in the weapons <a href="https://github.com/danimtz/DensityUE5/blob/master/Source/Density/Weapons/DensWeaponInstance.h" rel="external nofollow noopener" target="_blank">WeaponInstance class</a> which is a class that holds all the information about how a weapon functions, and is meant to be extended by blueprints for designers to tweak.</p>
+
+<p>When firing a weapon, the firing cost Gameplay Effect removes 1 ammo from the player’s currently equipped weapon mag ammo attribute. When the magazine runs out of ammo, the <code class="language-plaintext highlighter-rouge">GA_Reload</code> ability’s <code class="language-plaintext highlighter-rouge">CanActivateAbility</code> function is overloaded to check wether the weapon has enough ammo to be reloaded. For <code class="language-plaintext highlighter-rouge">Primary</code> ammo weapons, the reserves are set to -1 to indicate they have infinite ammo:</p>
+<div class="l-body">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/WeaponHUDDevpost/CanActivateAbilityReload.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    Overriden CanActivateAbility function
+</div>
+
+<p>The ammo bricks are actors that inherit from custom C++ classes, <a href="https://github.com/danimtz/DensityUE5/tree/master/Source/Density/Items" rel="external nofollow noopener" target="_blank">DensPickupItem and DensAmmoBrick</a>. When a player collides with the ammo brick collision sphere, the brick will check wether the colliding player’s corresponding ammo type is full or not. If that ammo type is full, the brick will not be picked up.</p>
+
+<div class="l-body">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/WeaponHUDDevpost/AmmoBricks.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+    Special(green) and Heavy(purple) ammo bricks and collisions with a UE5 mannequin for scale
+</div>
+
+<h2 id="weapon-hud">Weapon HUD</h2>
+<p>The weapon section in the HUD is comprised of a <code class="language-plaintext highlighter-rouge">Weapon Carousel</code> Widget which holds three different individual <code class="language-plaintext highlighter-rouge">WeaponInfo</code> Widgets</p>
+
+<h3 id="weapon-info-widget">Weapon Info Widget</h3>
+<p>The weapon info widget gives the player information about the current weapon. It has the following dynamic elements that are initialized when a new weapon is equipped:</p>
+
+<div class="l-body">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/WeaponHUDDevpost/WeaponInfo.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+
+<ol>
+  <li>Weapon icon</li>
+  <li>Weapon element icon</li>
+  <li>Mag ammo</li>
+  <li>Ammo reserves</li>
+  <li>Ammo type bar (white, green or purple depending on ammo type)</li>
+  <li>Recently picked up ammo (+ sign followed by number of ammo goes there)</li>
+</ol>
+
+<p>The following function is called when initializing a new weapon instance with the UI:</p>
+<div class="l-page-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/WeaponHUDDevpost/WeaponInit.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+   Weapon Init function
+</div>
+
+<p>The weapon info widget also has widget animations that play when the weapon is equipped/unequipped and when ammo is picked up:</p>
+
+<div class="l-body">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/WeaponHUDDevpost/EquipAnim.gif" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/WeaponHUDDevpost/NewAmmoAnim.gif" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+
+<h3 id="weapon-carousel">Weapon Carousel</h3>
+<p>The weapon carousel widget holds three separate weapon info widgets. The currently equipped weapon info widget is set at the top, while the unequipped weapons are layed out minimized under it:</p>
+
+<div class="l-body-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/WeaponHUDDevpost/WeaponCarousel.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+   Weapon Carousel base layout
+</div>
+
+<p>When the player swaps weapons, an event is called from C++ in the Weapon Carousel widget that moves the selected weapon to the topmost slot, playing the equipped animation(from the weapon info widget above) while simultaneously playing the weapon unequip animation on the previously equipped weapon. The event then runs a short algorithm that decides where each of the unequipped weapons should be placed in the carousel to try and respect the original equip order.</p>
+
+<p>Once the position of each of the widgets is decided, an FInterp To node is used to smoothly move each of the weapon info widgets to their corresponding location. The following function is ran each tick to simulate a widget animation until the widget position is equal to the target position:</p>
+
+<div class="l-page-outset">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/WeaponHUDDevpost/MoveToPositionFunction.png" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+<div class="caption">
+   Move to position function. Ran each tick until the condition is met. TargetPosition array calculated by weapon ordering algorithm.
+</div>
+
+<h3 id="weapon-ordering-algorithm">Weapon Ordering Algorithm</h3>
+<p>The algorithm for ordering the weapons is rather simple and not extremely efficient( O(N^2) ) but since it only iterates an array of 3 items it does its job. (It is designed to be able to support more than 3 weapon slots). 
+The initial slots on the carousel are numbered from 0 to 2 (0, 1, 2).</p>
+
+<ol>
+  <li>Initialize array (<code class="language-plaintext highlighter-rouge">CarouselNodeEmptyArray</code>) that holds boolean value on wether a slot in the carousel is empty and set the original slot of the weapon to be equipped to empty. (eg if equipping the weapon in slot 1, set the bool array slot 1 to empty)</li>
+  <li>Set the target position for the newly equipped weapon to the very top slot of the carousel, then create an array <code class="language-plaintext highlighter-rouge">EquippedWeaponSlotArray</code> with the remaining weapon slots. (eg if equipping weapon in slot 1, leftover array should be [0, 2] )</li>
+  <li>Iterate the <code class="language-plaintext highlighter-rouge">EquippedWeaponSlotArray</code> array with index <code class="language-plaintext highlighter-rouge">j</code>:
+    <ul>
+      <li>Iterate the <code class="language-plaintext highlighter-rouge">CarouselNodeEmptyArray</code> array starting from the end with index <code class="language-plaintext highlighter-rouge">k</code>:
+        <ul>
+          <li>If (<code class="language-plaintext highlighter-rouge">CarouselNodeEmptyArray[k]</code> is empty) Or If (<code class="language-plaintext highlighter-rouge">EquippedWeaponSlotArray[j]</code> &gt;= <code class="language-plaintext highlighter-rouge">k</code>):
+            <ol>
+              <li>Set position for target weapon <code class="language-plaintext highlighter-rouge">EquippedWeaponSlotArray[j]</code>.</li>
+              <li>Set <code class="language-plaintext highlighter-rouge">CarouselNodeEmptyArray[j]</code> to empty and set <code class="language-plaintext highlighter-rouge">CarouselNodeEmptyArray[k]</code> to not empty.</li>
+              <li>Break out of the inner for loop.</li>
+            </ol>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>Using this algorithm allows the weapons in the carousel to always be ordered. For example if a player has their <code class="language-plaintext highlighter-rouge">Heavy</code> ammo weapon equipped and wants to change to their first unequipped weapon, the entire carousel will reorder the <code class="language-plaintext highlighter-rouge">Heavy</code> ammo weapon to be at the bottom of the list:</p>
+
+<div class="l-body">
+  <figure>
+
+  <picture>
+    
+
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/WeaponHUDDevpost/CarouselAnim.gif" class="img-fluid rounded z-depth-1" width="auto" height="auto" data-zoomable="" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+</figure>
+
+</div>
+
+<p><a href="#"><i class="fas fa-arrow-up fa-sm"></i> Back to top</a></p>
+
+<p><a href="/portfolio/density/"><i class="fas fa-undo fa-sm"></i> Back to project</a></p>
+
+      </d-article>
+
+    <!-- 
+      <d-appendix>
+        <d-footnote-list></d-footnote-list>
+        <d-citation-list></d-citation-list>
+      </d-appendix>
+    -->
+    
+      <d-bibliography src="/assets/bibliography/"></d-bibliography>
+</div>
+
+    <!-- Footer -->
+<footer class="fixed-bottom">
+  <div class="container mt-0">
+    © Copyright 2024 Daniel Martinez Amigo.
+    Powered by <a href="http://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> based on <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme.
+
+    
+    
+  </div>
+</footer>
+
+
+
+    <!-- Bootsrap & MDB scripts
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.4.4/umd/popper.min.js" integrity="sha512-eUQ9hGdLjBjY3F41CScH3UX+4JDSI9zXeroz7hJ+RteoCaY+GP/LDoM8AO+Pt+DRFw3nXqsjh9Zsts8hnYv8/A==" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.6.1/js/bootstrap.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js" integrity="sha512-Mug9KHKmroQFMLm93zGrjhibM2z2Obg9l6qFG2qKjXEXkMp/VDkI4uju9m4QKPjWSwQ6O2qzZEnJDEeCw0Blcw==" crossorigin="anonymous"></script>
+ -->
+<!-- Bootsrap & MDB scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.19.1/js/mdb.min.js" integrity="sha512-Mug9KHKmroQFMLm93zGrjhibM2z2Obg9l6qFG2qKjXEXkMp/VDkI4uju9m4QKPjWSwQ6O2qzZEnJDEeCw0Blcw==" crossorigin="anonymous"></script>
+
+    
+    
+
+<!-- Scrolling Progress Bar -->
+<script type="text/javascript">
+  /*
+   * This JavaScript code has been adapted from the article 
+   * https://css-tricks.com/reading-position-indicator/ authored by Pankaj Parashar, 
+   * published on the website https://css-tricks.com on the 7th of May, 2014.
+   * Couple of changes were made to the original code to make it compatible 
+   * with the `al-foio` theme.
+   */
+  const progressBar = $("#progress");
+  /*
+   * We set up the bar after all elements are done loading.
+   * In some cases, if the images in the page are larger than the intended
+   * size they'll have on the page, they'll be resized via CSS to accomodate
+   * the desired size. This mistake, however, breaks the computations as the
+   * scroll size is computed as soon as the elements finish loading.
+   * To account for this, a minimal delay was introduced before computing the
+   * values.
+   */
+  window.onload = function () {
+    setTimeout(progressBarSetup, 50);
+  };
+  /*
+   * We set up the bar according to the browser.
+   * If the browser supports the progress element we use that.
+   * Otherwise, we resize the bar thru CSS styling
+   */
+  function progressBarSetup() {
+    if ("max" in document.createElement("progress")) {
+      initializeProgressElement();
+      $(document).on("scroll", function() {
+        progressBar.attr({ value: getCurrentScrollPosition() });
+      });
+      $(window).on("resize", initializeProgressElement);
+    } else {
+      resizeProgressBar();
+      $(document).on("scroll", resizeProgressBar);
+      $(window).on("resize", resizeProgressBar);
+    }
+  }
+  /*
+   * The vertical scroll position is the same as the number of pixels that
+   * are hidden from view above the scrollable area. Thus, a value > 0 is
+   * how much the user has scrolled from the top
+   */
+  function getCurrentScrollPosition() {
+    return $(window).scrollTop();
+  }
+
+  function initializeProgressElement() {
+    let navbarHeight = $("#navbar").outerHeight(true);
+    $("body").css({ "padding-top": navbarHeight });
+    $("progress-container").css({ "padding-top": navbarHeight });
+    progressBar.css({ top: navbarHeight });
+    progressBar.attr({
+      max: getDistanceToScroll(),
+      value: getCurrentScrollPosition(),
+    });
+  }
+  /*
+   * The offset between the html document height and the browser viewport
+   * height will be greater than zero if vertical scroll is possible.
+   * This is the distance the user can scroll
+   */
+  function getDistanceToScroll() {
+    return $(document).height() - $(window).height();
+  }
+
+  function resizeProgressBar() {
+    progressBar.css({ width: getWidthPercentage() + "%" });
+  }
+  // The scroll ratio equals the percentage to resize the bar
+  function getWidthPercentage() {
+    return (getCurrentScrollPosition() / getDistanceToScroll()) * 100;
+  }
+</script>
+
+    <!-- Medium Zoom JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+    <script defer src="/assets/js/zoom.js"></script>
+</body>
+</html>
