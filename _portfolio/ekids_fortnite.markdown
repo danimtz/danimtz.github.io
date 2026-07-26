@@ -3,7 +3,7 @@ layout: page
 title: eKids Fortnite Play and Learn
 description: Educational gameplay experiences created using Unreal Editor for Fortnite
 img: /assets/img/BinaryNumbers.png
-importance: 2
+importance: 3
 category: unreal engine
 ---
 

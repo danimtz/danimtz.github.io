@@ -3,7 +3,7 @@ layout: page
 title: Density UE5
 description: Recreating Destiny 2 in UE5 using Gameplay Ability System and other features.
 img: /assets/img/Density.png
-importance: 1
+importance: 2
 category: unreal engine
 ---
 
