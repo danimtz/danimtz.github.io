@@ -34,7 +34,7 @@ Below are some posts covering different areas of the project and the workflows u
 
 <hr>
 <div class="devpost">
-  {% assign sorted_devpost = site.devpost | sort: "importance" %}
+  {% assign sorted_devpost = site.devpost | where: "category", "density" | sort: "importance" %}
     <!-- Generate cards for each project -->
     <div class="grid">
     {% for devpost in sorted_devpost %}

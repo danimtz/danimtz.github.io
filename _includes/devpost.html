@@ -8,7 +8,12 @@
   {% endif %}
     <div class="card hoverable">
       {% if devpost.img %}
+      {% assign devpost_img_ext = devpost.img | split: '.' | last | downcase %}
+      {% if devpost_img_ext == 'mp4' or devpost_img_ext == 'webm' %}
+      <video src="{{ devpost.img | relative_url }}" autoplay loop muted playsinline preload="metadata"></video>
+      {% else %}
       <img src="{{ devpost.img | relative_url }}" alt="devpost thumbnail">
+      {% endif %}
       {% endif %}
       <div class="card-body">
         <h3 class="card-title">{{ devpost.title }}</h3>
