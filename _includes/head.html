@@ -15,11 +15,11 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons">
 
     <!-- Code Syntax Highlighting -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/{{ site.highlight_theme_light | append: '.css' }}" media="" id="highlight_theme_light" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@fead13aa9a6f3216ecc9c5758319a3d5d1236835/{{ site.highlight_theme_light | append: '.css' }}" media="" id="highlight_theme_light" />
 
     {% if page.toc and page.toc.sidebar %}
     <!-- Sidebar Table of Contents -->
-    <link href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.css" rel="stylesheet" integrity="sha256-W/ODz5gmpKA6SaehFmR8fVmBRb+lizLGsIKO3xmZy2M=" crossorigin="anonymous" />
     {% endif %}
 
     <!-- Styles -->
@@ -33,7 +33,7 @@
 
     <!-- Dark Mode -->
     {% if site.enable_darkmode %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/{{ site.highlight_theme_dark | append: '.css' }}" media="none" id="highlight_theme_dark" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@fead13aa9a6f3216ecc9c5758319a3d5d1236835/{{ site.highlight_theme_dark | append: '.css' }}" media="none" id="highlight_theme_dark" />
     <script src="{{ '/assets/js/theme.js' | relative_url | bust_file_cache }}"></script>
     <script src="{{ '/assets/js/dark_mode.js' | relative_url | bust_file_cache }}"></script>
     {% endif %}
